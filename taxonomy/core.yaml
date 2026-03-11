@@ -1,0 +1,156 @@
+# Core taxonomy - universal tags that apply to any UX research domain
+# These are domain-agnostic and should be included in every project
+
+Emotion:
+  - name: Confusion
+    aliases: [confusion, confused]
+    locale: { en: Confusion, "no": Forvirring }
+    description: User indicates confusion.
+
+  - name: Frustration
+    aliases: [frustration, angry, annoyed]
+    locale: { en: Frustration, "no": Frustrasjon }
+    description: User expresses irritation or anger.
+
+Feedback Type:
+  - name: Bug
+    aliases: [bug]
+    locale: { en: Bug, "no": Feil }
+    description: A software malfunction or defect.
+
+  - name: Delighter
+    aliases: [delight, delighter]
+    locale: { en: Delighter, "no": Gledesmoment }
+    description: Unexpected positive experience that delights users.
+
+  - name: Expectation Mismatch
+    aliases: [expectation mismatch, expectation]
+    locale: { en: Expectation Mismatch, "no": Forventningsavvik }
+    description: When product behaviour differs from user expectation.
+
+  - name: Feature Request
+    aliases: [feature request, feature]
+    locale: { en: Feature Request, "no": "Funksjonsforespørsel" }
+    description: User asks for a new feature or capability.
+
+  - name: Praise
+    aliases: [praise, positive feedback]
+    locale: { en: Praise, "no": Ros }
+    description: Positive feedback, delight or compliment.
+
+  - name: Workaround
+    aliases: [workaround, hack]
+    locale: { en: Workaround, "no": Løsning (workaround) }
+    description: User-provided temporary solution to a problem.
+
+Insight Type:
+  - name: Need
+    aliases: [need, user need]
+    locale: { en: Need, "no": Behov }
+    description: A stated or observed user need.
+
+  - name: Opportunity
+    aliases: [opportunity, idea]
+    locale: { en: Opportunity, "no": Mulighet }
+    description: Potential area to improve or build.
+
+  - name: Pain Point
+    aliases: [pain point, issue, pain]
+    locale: { en: Pain Point, "no": Smertepunkt }
+    description: An actionable user pain point.
+
+Workflow / Journey:
+  - name: Discovery
+    aliases: [discovery, research, discovery phase]
+    locale: { en: Discovery, "no": Oppdagelse/Discovery }
+    description: Discovery stage of the user journey.
+
+  - name: Onboarding
+    aliases: [onboarding, setup, first use, signup]
+    locale: { en: Onboarding, "no": Onboarding }
+    description: Onboarding and first-use tasks.
+
+Lifecycle:
+  - name: Emerging
+    aliases: [emerging, early]
+    locale: { en: Emerging, "no": Fremvoksende }
+    description: Observation that is appearing in early data.
+
+  - name: Hypothesis
+    aliases: [hypothesis, assumption]
+    locale: { en: Hypothesis, "no": Hypotese }
+    description: Unvalidated hypothesis.
+
+  - name: Validated
+    aliases: [validated]
+    locale: { en: Validated, "no": Validert }
+    description: Validated by evidence or data.
+
+User Segment:
+  - name: Consumer
+    aliases: [consumer, user, end user]
+    locale: { en: Consumer, "no": Forbruker }
+    description: Individual consumer user.
+
+  - name: New User
+    aliases: [new user, first-time user, first time]
+    locale: { en: New User, "no": Ny bruker }
+    description: Users in their first sessions or first week of using product.
+
+  - name: Power User
+    aliases: [power user, advanced user, frequent user]
+    locale: { en: Power User, "no": Avansert bruker }
+    description: High-frequency or advanced users.
+
+Domain / Topic:
+  - name: Conversion
+    aliases: [conversion, conversion rate, sales funnel]
+    locale: { en: Conversion, "no": Konvertering }
+    description: Conversion-related issues and metrics.
+
+  - name: Integrations
+    aliases: [integration, integrations, integration issues]
+    locale: { en: Integrations, "no": Integrasjoner }
+    description: Third-party integrations and technical integrations.
+
+  - name: Accessibility
+    aliases: [accessibility, a11y]
+    locale: { en: Accessibility, "no": Tilgjengelighet }
+    description: Accessibility issues and considerations.
+
+  - name: Performance
+    aliases: [performance, speed, latency]
+    locale: { en: Technical Performance, "no": Ytelse/Perfomans }
+    description: Performance, slowness, and latency issues.
+
+  - name: Price Sensitivity
+    aliases: [price sensitivity, pricing, cost concerns, price, value perception, affordability]
+    locale: { en: Price Sensitivity, "no": "Prisfølsomhet" }
+    description: User concerns about pricing, costs, value for money, and affordability.
+
+Source Type:
+  - name: Interview Summary
+    aliases: [summary, interview summary]
+    locale: { en: Interview Summary, "no": Intervjusammendrag }
+    description: Short summary of an interview.
+
+  - name: Interview Transcript
+    aliases: [transcript, interview transcript]
+    locale: { en: Interview Transcript, "no": Intervjuutskrift }
+    description: Full verbatim transcript of an interview.
+
+  - name: Usability Test Notes
+    aliases: [usability, usability test]
+    locale: { en: Usability Test Notes, "no": Brukbarhetstester (notater) }
+    description: Notes collected during moderated usability sessions.
+
+Meta / System:
+  - name: Auto-tagged
+    aliases: [auto-tagged]
+    locale: { en: Auto-tagged, "no": Autotagget }
+    description: Applied by the auto-tagging engine.
+
+  - name: Human-reviewed
+    aliases: [human-reviewed]
+    locale: { en: Human-reviewed, "no": "Manuelt gjennomgått" }
+    description: Reviewed and curated by a human.
