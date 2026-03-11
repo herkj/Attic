@@ -16,7 +16,7 @@ Each interview is a **session**. A session can have multiple source files - a tr
 
 1. Drop source files in `Research/inbox/`
 2. Run `/analyse` - it asks which study the session belongs to, then asks if you have additional source files (transcript + notes + observer notes all go in together)
-3. Run `/review-observations` - approve, reject, or edit what was extracted
+3. Run `/review-observations` - approve, reject, edit, or add your own observations
 4. Run `/synthesize` - turns approved observations into session insights
 
 Once you have multiple sessions, run `/study-synthesize` to find patterns across all of them.

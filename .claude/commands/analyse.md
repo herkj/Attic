@@ -36,6 +36,7 @@ Before doing anything else, ask the user:
 - Check what source files already exist in `session-{nn}-sources/`. If new files are being added, copy them in and name them appropriately. If re-running extraction, use all source files present.
 
 ### 2. Auto-fill participant info
+
 Read the source content. Infer what you can about the participant:
 - **role** (merchant, consumer, partner, agency, developer, etc.)
 - **country** (location mentions, currency, language cues)
@@ -44,42 +45,37 @@ Read the source content. Infer what you can about the participant:
 If `{auto_mode}` is false: Present inferences and ask the user to confirm or correct. Update the session file frontmatter.
 If `{auto_mode}` is true: Write inferences directly to frontmatter without asking.
 
-### 3. PII scan
-Scan source content using the PII rules in CLAUDE.md.
+### 3. PII scrub
 
-- **If no PII found:** Tell the user, create identical scrubbed copy, go to step 5.
-- **If PII found:** If `{auto_mode}` is true, scrub all automatically and continue. If `{auto_mode}` is false, list all items with proposed replacements and ask "Scrub all and proceed?"
+Run `/scrub-pii` on each source file. Pass `{auto_mode}` so it knows whether to ask for confirmation or proceed automatically.
 
-Save scrubbed file as `{filename}-scrubbed.md` in the same folder.
+Each source file gets its own scrubbed copy: `{filename}-scrubbed.md` in the same folder.
 
-If multiple source files exist (notes.md + transcript.md), scrub each one.
+### 4. Load taxonomy and study context
 
-### 4. Combine sources for extraction
-Merge all scrubbed content with clear labels:
-```
-=== OBSERVER NOTES ===
-{content}
-=== TRANSCRIPT ===
-{content}
-```
+Follow CLAUDE.md "Taxonomy Loading" pattern. Also read research questions from study.md - these become the `{focus_areas}` for extraction.
 
-### 5. Load taxonomy and study context
-Follow CLAUDE.md "Taxonomy Loading" pattern. Also read research questions from study.md - these become focus areas.
+### 5. Extract per source
 
-### 6. Extract observations
-Read `prompts/extract-observations.md` from the Attic project root. Apply it with:
-- {taxonomy_section} from step 5
-- {max_observations}: 30
-- {content}: combined scrubbed sources from step 4
-- {focus_areas}: research questions, or "general exploration"
+Read `prompts/extract-observations.md` from the Attic project root. Run extraction separately on each scrubbed source file. For each source, apply the prompt with:
+- `{taxonomy_section}`: merged taxonomy from step 4
+- `{max_observations}`: 30 (across all sources combined)
+- `{source_label}`: the source type (e.g. "transcript", "observer notes", "interviewer notes")
+- `{content}`: the scrubbed content of that source file
+- `{focus_areas}`: research questions from study.md, or "general exploration"
 
-### 7. Format and write
-Format each observation per CLAUDE.md "Observation Format" (all marked `[?]`). Write into the session file under ## Observations.
+Each source produces its own set of observations. Do NOT merge sources into a single extraction pass - cross-source patterns are identified at synthesis.
+
+### 6. Format and write
+
+Format each observation per CLAUDE.md "Observation Format" (all marked `[?]`). Write all observations into the session file under `## Observations`.
 
 **Do NOT generate Session Insights.** Leave the `## Session Insights` section empty. Insights are generated separately by `/synthesize` after the user has reviewed and approved observations with `/review-observations`.
 
-### 8. Move original to processed
+### 7. Move original to processed
+
 If the source came from `Research/inbox/`, move it to `Research/inbox/processed/`.
 
-### 9. Summary
-Show: participant info confirmed, PII result, observation count by type, top tags. Remind to run `/review-observations`.
+### 8. Summary
+
+Show: participant info confirmed, PII result, observation count by type and source, top tags. Remind to run `/review-observations`.

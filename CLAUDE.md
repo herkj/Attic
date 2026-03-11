@@ -31,6 +31,7 @@ Markdown files are the database. Claude is the AI engine. Obsidian is the UI.
 | `/debrief` | Post-interview technique feedback |
 | `/ingest-report` | External report ingestion |
 | `/yolo-insight` | Fully automatic pipeline - no review step, AI decides everything |
+| `/scrub-pii` | Scrub PII from a source file (standalone or called by other skills) |
 
 ---
 
@@ -89,6 +90,7 @@ Skills that need taxonomy (analyse, ingest-report) follow this pattern:
 ```markdown
 ### [?] Short observation title
 **Type:** problem | observation | preference | workaround | quote_summary | hypothesis
+**Source:** transcript | observer notes | interviewer notes
 **Tags:** Tag 1, Tag 2, Tag 3
 **Evidence:**
 > "Exact quote from source"
@@ -132,7 +134,7 @@ Confidence criteria:
 
 **Redact:** Personal names -> [Participant]/[Interviewer]/[Person], emails -> [Email], phones -> [Phone], addresses -> [Address], ID numbers -> [ID], Slack @mentions with real names
 
-**Keep unchanged:** Product names, company/brand names, city names as market references, job titles, nationalities, all formatting and structure
+**Keep unchanged:** All names and aliases found in the taxonomy (product_areas and external_entities), city names as market references, job titles, nationalities, all formatting and structure
 
 ### Common Anti-Patterns (apply to all extraction and synthesis)
 

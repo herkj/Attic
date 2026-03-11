@@ -93,7 +93,7 @@ Then say:
 >
 > **Each interview is a session.** A session can have multiple source files - a transcript, your own notes, observer notes from a colleague. Attic reads all of them together before extracting observations, so evidence from multiple sources gets cross-referenced into stronger insights. When you run `/analyse`, it will ask if you have additional files to add to the session.
 >
-> **The standard workflow:** Drop source files in `{vault}/inbox/` → `/analyse` to extract observations (it will ask about additional sources) → `/review-observations` to approve them → `/synthesize` to turn them into insights. Use `/ingest-report` to pull in third-party reports or articles the same way.
+> **The standard workflow:** Drop source files in `{vault}/inbox/` → `/analyse` to extract observations (it will ask about additional sources) → `/review-observations` to approve, reject, edit, or add your own observations → `/synthesize` to turn them into insights. Use `/ingest-report` to pull in third-party reports or articles the same way.
 >
 > **Adding sources later:** If you get a transcript after already running `/analyse` on your notes, just run `/analyse` again on the session file - it picks up new files and re-extracts with the full set.
 >

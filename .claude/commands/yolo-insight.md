@@ -39,15 +39,7 @@ Write inferred values directly to the session file frontmatter. Set participant 
 
 ### 4. PII scrub
 
-Scan the source using PII rules from CLAUDE.md. Apply all redactions automatically without asking:
-- Personal names → [Participant] / [Interviewer] / [Person]
-- Emails → [Email]
-- Phone numbers → [Phone]
-- Addresses → [Address]
-- ID numbers → [ID]
-- Slack @mentions with real names → [Person]
-
-Save scrubbed file as `{filename}-scrubbed.md` in the same sources folder. If both `notes.md` and `transcript.md` exist, scrub each one.
+Run `/scrub-pii` on each source file with `{auto_mode} = true` (no confirmation prompts). Each source gets its own `{filename}-scrubbed.md` in the same sources folder.
 
 ### 5. Load taxonomy
 
@@ -59,10 +51,11 @@ Save scrubbed file as `{filename}-scrubbed.md` in the same sources folder. If bo
 
 ### 6. Extract observations
 
-Read `prompts/extract-observations.md` from the Attic project root. Apply it with:
+Read `prompts/extract-observations.md` from the Attic project root. Run extraction separately for each scrubbed source file. For each source, apply the prompt with:
 - `{taxonomy_section}`: merged taxonomy from step 5
-- `{max_observations}`: 30
-- `{content}`: scrubbed source content from step 4
+- `{max_observations}`: 30 (across all sources combined)
+- `{source_label}`: the source type (e.g. "transcript", "observer notes")
+- `{content}`: the scrubbed content of that source
 - `{focus_areas}`: research questions from the chosen study's `study.md`
 
 Format each observation per CLAUDE.md "Observation Format", all marked `[?]`.
