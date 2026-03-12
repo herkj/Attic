@@ -17,11 +17,14 @@ $ARGUMENTS - Study name (e.g. "Checkout Redesign", "Merchant Onboarding")
 
 ### 2. Choose taxonomy
 
-List available taxonomy files by globbing `taxonomy/*.yaml` in the Attic project root. Show them to the user:
-- `core` (always loaded - universal tags)
-- Any domain-specific files (e.g. `vipps-mobilepay`)
+Glob `taxonomy/*.yaml` in the Attic project root.
 
-Ask which domain taxonomy to use, or "core" only. Set the `taxonomy` frontmatter field.
+Use `AskUserQuestion`: "Which taxonomy should I use?"
+- **vipps-mobilepay** - domain-specific tags for Vipps MobilePay (show first as default if file exists)
+- **core** - universal tags only
+- (any other .yaml files found)
+
+Set the `taxonomy` frontmatter field.
 
 ### 3. Background
 
@@ -38,18 +41,49 @@ Ask the user to list their research questions. Coach briefly:
 
 Write under ## Research Questions. Also populate the `research-questions` frontmatter array.
 
+### 4b. PICO structure (optional)
+
+Ask: "Do you want to define a structured scope for this study? This helps keep extraction focused. (optional - press enter to skip)"
+
+If the user says yes or provides any input, prompt for each PICO component:
+- **Population:** Who are we studying? (e.g. "Norwegian SME merchants, first 30 days after signup")
+- **Phenomenon:** What behavior, experience, or product area are we exploring? (e.g. "Vipps PoS onboarding")
+- **Context:** Under what conditions or constraints? (e.g. "no prior Vipps experience, self-service signup")
+- **Outcome:** What do we want to learn or be able to say? (e.g. "Where participants get stuck and why")
+
+Write the PICO block under ## Scope in study.md:
+```markdown
+## Scope
+- **Population:** {value}
+- **Phenomenon:** {value}
+- **Context:** {value}
+- **Outcome:** {value}
+```
+
+Also store as structured frontmatter:
+```yaml
+pico:
+  population: "..."
+  phenomenon: "..."
+  context: "..."
+  outcome: "..."
+```
+
+In `/analyse` step 4, when `pico` is present in study.md frontmatter, pass the Outcome field as an additional `{focus_areas}` instruction to the extraction prompt: "Focus extraction on: {pico.outcome}". This keeps observations anchored to what the study is trying to answer.
+
 ### 5. Hypotheses
 
-Ask: "Do you have any hypotheses going in? (optional but useful)"
+Use `AskUserQuestion`: "Do you have any hypotheses going in?"
+- **Skip - no hypotheses yet**
+- **Yes - I have some**
 
-If yes, write under ## Hypotheses. If none, remove the placeholder dash.
+If "Yes", ask freeform. Write under ## Hypotheses. If skipped, remove the placeholder dash.
 
 ### 6. Method
 
 Ask about:
 - **Type:** interview, usability test, survey, diary study, or other
 - **Participants:** who and how many (e.g. "8-10 SMB merchants in Norway")
-- **Duration:** estimated per session (e.g. "45-60 min")
 
 Write under ## Method.
 

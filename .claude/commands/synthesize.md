@@ -17,8 +17,9 @@ If ## Session Insights already has content, ask user: replace or skip?
 ### 3. Format for prompt
 Assign each observation an ID (obs-1, obs-2, ...) and format as:
 ```
-[obs-1] (type) Title | Text | Evidence: "quote" | Tags: tag1, tag2
+[obs-1] (type) [source] [evidenceType] Title | Text | Evidence: "quote" | Tags: tag1, tag2
 ```
+Include `evidenceType` (behavioral/attitudinal) from the observation's **Evidence type** field. If the field is absent on older observations, infer: transcript quotes = behavioral, observer/interviewer notes = attitudinal.
 
 ### 4. Run synthesis
 Read `prompts/synthesize-session.md`. Send formatted observations. Parse the response.

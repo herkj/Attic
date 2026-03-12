@@ -30,9 +30,11 @@ Do not leave any session insight unassigned. If a session insight doesn't fit an
 create a new study insight for it (even if it's only supported by one session - label it as an "isolated finding").
 
 CONFIDENCE CRITERIA:
-- High: Supported by 3+ sessions, primarily behavioral evidence (what participants did, not just what they said), data is recent
-- Medium: Supported by 2 sessions, or supported by 3+ sessions but primarily attitudinal/stated preference evidence
+- High: Supported by 3+ sessions, at least one contributing session insight has evidenceStrength "behavioral" (what participants did, not just what they said), data is recent
+- Medium: Supported by 2 sessions, OR supported by 3+ sessions but all contributing session insights are evidenceStrength "attitudinal" (stated preferences, observer interpretations only)
 - Low: Single session support, data older than 12 months, or primarily inferential/hypothetical
+
+When all evidence is attitudinal, note this explicitly in the insight description: e.g. "Based on stated preferences across N sessions - no behavioral evidence observed."
 
 DEDUPLICATION:
 - When session insights from different sessions describe the same finding in different words, merge them into one study insight and list all supporting sessions

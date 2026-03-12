@@ -24,14 +24,13 @@ Markdown files are the database. Claude is the AI engine. Obsidian is the UI.
 |-------|---------|
 | `/setup-attic` | One-time setup: creates vault structure and generates domain taxonomy |
 | `/new-study` | Interactive study setup with research questions and method |
-| `/analyse` | Full session pipeline: participant info, PII scrub, observation extraction |
+| `/analyse` | Single entry point for all analysis: asks source type, runs transcript, notes, or report pipeline |
 | `/review-observations` | Interactive human approval of observations |
 | `/synthesize` | Session-level insight synthesis |
 | `/study-synthesize` | Cross-session study synthesis with prevalence |
 | `/debrief` | Post-interview technique feedback |
-| `/ingest-report` | External report ingestion |
-| `/yolo-insight` | Fully automatic pipeline - no review step, AI decides everything |
-| `/scrub-pii` | Scrub PII from a source file (standalone or called by other skills) |
+| `/scrub-pii` | Scrub PII from a source file, assigns participant pseudonyms |
+| `/fix-transcript` | Clean ASR/automated transcript errors before analysis |
 
 ---
 
@@ -70,12 +69,12 @@ When Attic lives inside `{vault}/Attic/`, Research data is at `../Research/` rel
 
 ### Taxonomy Loading
 
-Skills that need taxonomy (analyse, ingest-report) follow this pattern:
+Skills that need taxonomy (analyse) follow this pattern:
 1. Read the study.md frontmatter `taxonomy` field (e.g., "vipps-mobilepay")
 2. Find the Attic project root via Glob for `**/taxonomy/core.yaml`
 3. Always load `taxonomy/core.yaml`
 4. If taxonomy is not "core", also load `taxonomy/{value}.yaml`
-5. Check for `config/taxonomy/custom.yaml` in the Attic root. If it exists and has content, merge it as a third layer on top of the previous two.
+5. Find the Research root (see File Discovery). Check for any `.yaml` files in `Research/config/taxonomy/`. If any exist, merge them as a third layer on top of the previous two. Multiple files are all merged - this allows teams to maintain separate taxonomy files per domain or topic.
 6. Merge and format as a flat list per category:
    ```
    ## Product Area
@@ -90,6 +89,7 @@ Skills that need taxonomy (analyse, ingest-report) follow this pattern:
 ```markdown
 ### [?] Short observation title
 **Type:** problem | observation | preference | workaround | quote_summary | hypothesis
+**Evidence type:** behavioral | attitudinal
 **Source:** transcript | observer notes | interviewer notes
 **Tags:** Tag 1, Tag 2, Tag 3
 **Evidence:**
@@ -100,19 +100,27 @@ Interpreted statement about what was observed.
 
 Status markers: `[?]` pending, `[x]` approved, `[-]` rejected
 
+Evidence type:
+- `behavioral` - quote or description shows what the participant actually did
+- `attitudinal` - stated opinion, preference, or belief; or an observer's interpretation
+
 ### Session Insight Format
 
 ```markdown
 ### {Type}: Short insight title
 **Type:** pattern | behavior | friction | preference | context
+**Evidence strength:** behavioral | attitudinal
 **Tags:** Tag 1, Tag 2, Tag 3
 **Based on:** [[#Observation title 1]], [[#Observation title 2]]
 
 Factual description of what was observed.
+
+*Significance: One sentence on why this matters or what it tells us about the participant's experience.*
 ```
 
 - Tags = union of all tags from supporting observations (deduplicated)
 - Based on = wikilinks to observation headings (clickable in Obsidian)
+- Evidence strength = "behavioral" if any supporting observation is behavioral; "attitudinal" if all are attitudinal only
 
 ### Study Insight Format
 
@@ -126,13 +134,26 @@ Description of the pattern observed across sessions.
 ```
 
 Confidence criteria:
-- **High:** 3+ sessions, behavioral evidence, recent data
-- **Medium:** 2 sessions, or primarily attitudinal evidence
-- **Low:** single session, old data, or inferential
+- **High:** 3+ sessions, at least one session insight has behavioral evidence strength, recent data
+- **Medium:** 2 sessions, OR 3+ sessions but all attitudinal evidence
+- **Low:** single session, data older than 12 months, or primarily inferential
+
+### Participant Naming Convention
+
+Each participant gets a code + a memorable pseudonym: `P01 - Astrid`, `P02 - Robin`.
+
+The pseudonym is picked from `participant-names.yaml` in the Attic root:
+- If participant country is known, pick from that country's list
+- If participant gender is known, pick from the matching gender list within that country
+- If gender is unknown, pick from the shared `gender_neutral` list (one list, all countries)
+- Assign names in order - P01 gets the first available name, P02 the second, etc.
+- Within a study, names must be unique
+
+This makes sessions easier to remember and discuss without using real names.
 
 ### PII Scrubbing Rules
 
-**Redact:** Personal names -> [Participant]/[Interviewer]/[Person], emails -> [Email], phones -> [Phone], addresses -> [Address], ID numbers -> [ID], Slack @mentions with real names
+**Redact:** Replace real participant names with their assigned pseudonym (e.g. "Astrid" or "P01 - Astrid"). Replace interviewer names with [Interviewer]. Replace other person names with [Person]. Replace emails -> [Email], phones -> [Phone], addresses -> [Address], ID numbers -> [ID], Slack @mentions with real names.
 
 **Keep unchanged:** All names and aliases found in the taxonomy (product_areas and external_entities), city names as market references, job titles, nationalities, all formatting and structure
 
