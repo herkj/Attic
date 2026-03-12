@@ -31,6 +31,7 @@ Markdown files are the database. Claude is the AI engine. Obsidian is the UI.
 | `/debrief` | Post-interview technique feedback |
 | `/scrub-pii` | Scrub PII from a source file, assigns participant pseudonyms |
 | `/fix-transcript` | Clean ASR/automated transcript errors before analysis |
+| `/improve` | Analyze review history, propose extraction improvements, track quality over generations |
 
 ---
 
@@ -166,6 +167,59 @@ This makes sessions easier to remember and discuss without using real names.
 - Do not translate Norwegian content
 - Do not discard outliers - they may be the most interesting signals
 - When stated preference contradicts behavior, create separate observations for each
+- Always err toward surfacing more observations rather than fewer - the human review step exists to filter, but missed observations are unrecoverable
+
+### Learning System
+
+Attic improves over time by tracking review decisions and feeding them back into extraction. Learning data lives in the Research folder (team-specific, not in the Attic git repo), following the same pattern as custom taxonomy.
+
+**Principle:** Optimize for calibration - understanding what the human values - not for approval rate alone. The system should always err toward surfacing too much rather than too little.
+
+#### Learning Data Location
+
+```
+Research/
+  config/
+    learning/
+      journal.yaml          # Accumulated review decisions (one entry per /review-observations run)
+      examples.yaml          # Gold and anti-examples for extraction prompts
+      preferences.yaml       # Team preference notes and type approval rates
+      improve-history.yaml   # When /improve ran, what changed, metrics snapshot
+    taxonomy/
+      learned.yaml           # Taxonomy additions from /improve (tags, aliases)
+```
+
+#### Generation Tracking
+
+Each `/improve` run increments a generation counter. When `/analyse` runs extraction, it reads the current generation from `improve-history.yaml` (count of entries, or 0 if no file) and writes `learning_generation: {n}` to the session file frontmatter. When `/review-observations` logs to the journal, it copies this generation number into the entry. This links each review to the version of learning data that produced its observations, enabling before/after comparison.
+
+#### Four Metrics
+
+Computed from journal entries by `/improve`:
+
+| Metric | Formula | Measures | Better = |
+|--------|---------|----------|----------|
+| Miss rate | `added_by_user / (approved + added_by_user)` | Things the human wanted that the AI didn't surface | Lower |
+| Noise rate | `rejected / extracted` | Things the AI surfaced that the human didn't want | Lower |
+| Edit rate | `edited_by_user / approved` | How often the first pass needed correction | Lower |
+| Tag accuracy | `1 - (tag_edits / approved)` | Whether the AI assigns the right tags | Lower miss, higher accuracy |
+
+Miss rate is the most important. A system that never misses what the human would catch is doing its job, even if it produces some noise. Noise is cheap to filter. Misses are invisible and unrecoverable.
+
+#### How the Loop Works
+
+1. `/analyse` loads learning data (examples + preferences) alongside taxonomy, records the current generation in session frontmatter, and runs extraction with the learning section injected into prompts.
+2. `/review-observations` collects approve/reject/edit/add decisions with rejection reasons, logs everything to `journal.yaml` with the generation tag, and nudges the user to run `/improve` after 5+ sessions.
+3. `/improve` reads the journal, computes metrics by generation, proposes example bank updates, preference notes, taxonomy additions, and extraction rules. Accepted changes are written to `Research/config/learning/`. The generation counter increments.
+4. The next `/analyse` run loads the updated learning data - the loop repeats.
+
+#### Learning Data Loading (used by /analyse)
+
+When `/analyse` reaches the taxonomy loading step, it also checks for learning data:
+
+1. Check for `Research/config/learning/examples.yaml` and `Research/config/learning/preferences.yaml`.
+2. If either exists, build `{learning_section}` with up to 3 gold examples, up to 3 anti-examples, and all preference notes. Format as a block that gets injected into extraction prompts after the taxonomy section.
+3. If neither exists (first use, no learning data yet), set `{learning_section}` to empty string. The placeholder in the prompt stays blank.
 
 ---
 
@@ -187,4 +241,12 @@ This makes sessions easier to remember and discuss without using real names.
     Studies/
     Reports/
     Repository/
+    config/
+      learning/
+        journal.yaml            # Review decisions log (written by /review-observations)
+        examples.yaml           # Gold + anti examples (written by /improve)
+        preferences.yaml        # Team preferences (written by /improve)
+        improve-history.yaml    # Improvement run log (written by /improve)
+      taxonomy/
+        learned.yaml            # Taxonomy additions from /improve
 ```

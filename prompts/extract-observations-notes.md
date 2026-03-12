@@ -14,6 +14,8 @@ Each observation is a distinct moment or insight. One observation = one underlyi
 {taxonomy_section}
 ================
 
+{learning_section}
+
 CLASSIFICATION RULES:
 
 **When a note describes a physical action - clicking, scrolling, hesitating, re-reading, abandoning, pausing,** set evidenceType to "behavioral" even if the participant said nothing about it.
@@ -63,6 +65,8 @@ OBSERVATION WRITING RULES:
 **When the same underlying insight appears in multiple notes,** extract it once and note the recurrence.
 
 **When an outlier appears only once,** extract it anyway - do not discard it for lack of repetition.
+
+**When in doubt about whether something warrants an observation,** extract it. The human review step exists to filter over-extraction. Under-extraction - silently discarding a potentially valuable insight - cannot be recovered. Always err toward surfacing more.
 
 **When estimating extraction volume,** a well-analyzed set of observer notes for a 60-minute session typically produces 8-20 observations. Fewer than 4 suggests under-extraction. More than 40 suggests over-fragmentation.
 

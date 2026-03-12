@@ -14,6 +14,8 @@ Each observation is a distinct finding. One observation = one distinct claim or 
 {taxonomy_section}
 ================
 
+{learning_section}
+
 CLASSIFICATION RULES:
 
 **When a report finding is backed by a statistic, sample size, or quantitative data,** set evidenceType to "behavioral" - quantified behavior is stronger evidence than stated opinion.
@@ -57,6 +59,8 @@ OBSERVATION WRITING RULES:
 **When writing an observation,** reinterpret the finding in your own words - do not copy the report's own summary sentence. Support it with the exact report passage as evidence.
 
 **When estimating extraction volume,** a well-analyzed report typically produces 10-30 observations depending on length. Fewer than 5 suggests under-extraction. More than 50 suggests over-fragmentation.
+
+**When in doubt about whether something warrants an observation,** extract it. The human review step exists to filter over-extraction. Under-extraction - silently discarding a potentially valuable insight - cannot be recovered. Always err toward surfacing more.
 
 **When no taxonomy tag fits the observation well,** leave the tags array empty rather than forcing an imprecise tag.
 

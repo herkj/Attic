@@ -14,6 +14,8 @@ Each observation is a distinct moment or insight. One observation = one underlyi
 {taxonomy_section}
 ================
 
+{learning_section}
+
 CLASSIFICATION RULES:
 
 **When a participant describes or demonstrates an action - what they actually do or did,** set evidenceType to "behavioral".
@@ -63,6 +65,8 @@ OBSERVATION WRITING RULES:
 **When the same underlying insight appears multiple times in the transcript,** extract it once and note the recurrence - do not create duplicate observations.
 
 **When an outlier appears only once,** extract it anyway - do not discard it for lack of repetition.
+
+**When in doubt about whether something warrants an observation,** extract it. The human review step exists to filter over-extraction. Under-extraction - silently discarding a potentially valuable insight - cannot be recovered. Always err toward surfacing more.
 
 **When estimating extraction volume,** a well-analyzed 60-minute interview typically produces 10-25 observations. Fewer than 5 suggests under-extraction. More than 50 suggests over-fragmentation.
 

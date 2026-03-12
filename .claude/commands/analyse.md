@@ -111,7 +111,7 @@ If `{auto_mode}` is false: after showing proposed redactions, use `AskUserQuesti
 
 *Manual mode checkpoint.*
 
-### A4. Load taxonomy and study context
+### A4. Load taxonomy, learning data, and study context
 
 Follow CLAUDE.md "Taxonomy Loading" pattern. Read research questions from study.md - these become `{focus_areas}` for extraction.
 
@@ -123,6 +123,31 @@ If the study has no taxonomy set and `{auto_mode}` is false:
   - **vipps-mobilepay** - domain-specific tags for Vipps MobilePay (show as default/first)
   - **core** - universal tags only
   - (any other .yaml files found)
+
+**Load learning data (see CLAUDE.md "Learning System"):**
+1. Find the Research root. Check for `Research/config/learning/examples.yaml` and `Research/config/learning/preferences.yaml`.
+2. If either file exists, build `{learning_section}` formatted as:
+   ```
+   === LEARNING FROM PREVIOUS SESSIONS ===
+
+   EXAMPLES OF GOOD OBSERVATIONS (approved by reviewers):
+   - "observation text" (type: workaround, tags: Tag1, Tag2) - why: "clear behavioral evidence with business impact"
+
+   EXAMPLES OF OBSERVATIONS TO AVOID (rejected by reviewers):
+   - "observation text" (type: observation) - rejected because: "too vague, no actionable evidence"
+
+   REVIEWER PREFERENCES:
+   - Values workaround observations highly
+   - Tends to reject quote_summary unless emotionally charged
+
+   =======================================
+   ```
+   Include up to 3 gold examples, up to 3 anti-examples, and all preference notes.
+3. If neither file exists (no learning data yet), set `{learning_section}` to empty string. The prompt placeholder will be blank - do not include the `=== LEARNING ===` wrapper.
+
+**Record generation:**
+1. Check for `Research/config/learning/improve-history.yaml`. If it exists, count the number of entries to determine the current generation number. If it does not exist, generation is `0`.
+2. Write `learning_generation: {generation}` to the session file frontmatter.
 
 *Manual mode checkpoint.*
 
@@ -136,6 +161,7 @@ For each scrubbed source file, load the matching prompt:
 
 Apply the prompt with:
 - `{taxonomy_section}`: merged taxonomy from step A4
+- `{learning_section}`: learning data from step A4 (empty string if none)
 - `{max_observations}`: 30 (across all sources combined)
 - `{source_label}`: the source type (e.g. "transcript", "observer notes", "interviewer notes")
 - `{content}`: scrubbed content of that source file
@@ -218,7 +244,7 @@ If `{auto_mode}` is true: write inferences directly.
 
 *Manual mode checkpoint.*
 
-### B3. Load taxonomy
+### B3. Load taxonomy and learning data
 
 Follow CLAUDE.md "Taxonomy Loading" pattern.
 
@@ -228,6 +254,10 @@ If `{auto_mode}` is false:
   - **vipps-mobilepay** - domain-specific tags (default/first)
   - **core** - universal tags only
   - (any other .yaml files found)
+
+**Load learning data:** Same as Pipeline A step A4 - check for `Research/config/learning/examples.yaml` and `preferences.yaml`, build `{learning_section}` if they exist, set to empty string if not.
+
+**Record generation:** Same as Pipeline A step A4 - read generation from `improve-history.yaml`, write `learning_generation` to report.md frontmatter.
 
 ### B4. Create report structure
 
@@ -253,6 +283,7 @@ Fill in the template frontmatter and About section with metadata from step B2.
 
 Read `prompts/extract-observations-report.md`. Apply with:
 - `{taxonomy_section}`: from step B3
+- `{learning_section}`: learning data from step B3 (empty string if none)
 - `{max_observations}`: 30
 - `{content}`: converted markdown from step B5
 - `{source_org}`, `{source_date}`, `{methodology}`: from step B2
