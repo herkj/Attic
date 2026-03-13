@@ -49,8 +49,8 @@ Research/
     {Study Name}/
       study.md                        # Study metadata, taxonomy ref, research questions
       sessions/
-      session-01.md                   # Observations + insights
-      session-01-sources/
+      P01-Astrid-34.md                # Observations + insights (P{nn}-{Pseudonym}-{age})
+      P01-Astrid-34-sources/
         transcript.md                 # Raw transcript
         transcript-scrubbed.md        # PII-scrubbed
         notes.md                      # Observer notes
@@ -62,7 +62,7 @@ Research/
 
 When a skill receives a path or reference:
 1. If it's a full file path, use it directly
-2. If it looks like "Study Name/session-01", resolve to `Research/Studies/{Study Name}/sessions/session-01.md`
+2. If it looks like "Study Name/P01-Astrid-34", resolve to `Research/Studies/{Study Name}/sessions/P01-Astrid-34.md`
 3. If ambiguous, use Glob to find matching files and ask the user to pick
 4. To find the vault root, Glob for `**/Research/Studies/`
 

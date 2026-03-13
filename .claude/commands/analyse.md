@@ -69,17 +69,26 @@ After identifying the source file(s):
   - List each study by name (one option per study)
   - Add **"+ New study"** as the last option
 - If the user picks **"+ New study"**: run the `/new-study` flow to create the study, then return here and continue with the newly created study.
-- Determine the next session number by checking existing `session-*.md` files in that study's `sessions/`.
-- Create:
-  - `sessions/session-{nn}.md` from the session template
-  - `sessions/session-{nn}-sources/`
-- Copy the inbox file(s) to `sessions/session-{nn}-sources/`. Name by type: `transcript.md` or `notes.md`. If multiple notes files, name them `notes-1.md`, `notes-2.md`, etc.
+- Determine the next participant number by counting existing session files in that study's `sessions/` (files matching `P*.md`). Store as `{nn}` (zero-padded: 01, 02, ...).
+- Create with a temporary name until participant info is known (step A2):
+  - `sessions/P{nn}-pending.md` from the session template
+  - `sessions/P{nn}-pending-sources/`
+- Copy the inbox file(s) to `sessions/P{nn}-pending-sources/`. Name by type: `transcript.md` or `notes.md`. If multiple notes files, name them `notes-1.md`, `notes-2.md`, etc.
 - Link the session to the study in the frontmatter.
 - Move inbox files to `processed/` at the end (step A7).
 
 **If $ARGUMENTS points to a session file or source file:**
 - Use existing session structure. See CLAUDE.md "File Discovery".
-- Check what source files already exist in `session-{nn}-sources/`. Copy in any new files. If re-running extraction, use all source files present.
+- Check what source files already exist in the sources folder. Copy in any new files. If re-running extraction, use all source files present.
+
+**If `{source_type}` is `transcript`:**
+
+- **If `{auto_mode}` is true:** Run `/fix-transcript` automatically on the source file.
+- **If `{auto_mode}` is false:** Use `AskUserQuestion`: "Do you want to run /fix-transcript on this file first?"
+  - **Yes - fix transcript errors first**
+  - **No - proceed as-is**
+
+If running (auto or user confirms), run `/fix-transcript` on the source file. The fixed file replaces the original in `P{nn}-pending-sources/` before continuing.
 
 *Manual mode checkpoint.*
 
@@ -96,6 +105,19 @@ If `{auto_mode}` is false: present inferences and use `AskUserQuestion` "Does th
 
 Update session frontmatter with confirmed or corrected values.
 If `{auto_mode}` is true: write inferences directly to frontmatter.
+
+**Rename session files to final name:**
+
+Build the session name from confirmed participant info:
+- Format: `P{nn}-{Pseudonym}-{age}` where `{age}` is the `age-range` value (e.g. `26`, `34`, `45-54`)
+- If age-range is unknown, omit it: `P{nn}-{Pseudonym}`
+- The pseudonym comes from `/scrub-pii` assignment (see CLAUDE.md "Participant Naming Convention"). If scrub hasn't run yet, use the pseudonym inferred or assigned now.
+
+Rename:
+- `sessions/P{nn}-pending.md` → `sessions/P{nn}-{Pseudonym}-{age}.md`
+- `sessions/P{nn}-pending-sources/` → `sessions/P{nn}-{Pseudonym}-{age}-sources/`
+
+Store the final name as `{session_name}` for use in all subsequent steps.
 
 *Manual mode checkpoint.*
 

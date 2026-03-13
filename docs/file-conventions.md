@@ -8,14 +8,14 @@ Research/
     {{Study Name}}/
       study.md                          # Study metadata, questions, insights
       sessions/
-        session-01.md                   # Session file with observations & insights
-        session-01-sources/
+        P01-Astrid-34.md                # Session file (P{nn}-{Pseudonym}-{age})
+        P01-Astrid-34-sources/
           transcript.md                 # Raw transcript
           transcript-scrubbed.md        # PII-scrubbed version
           notes.md                      # Observer/interviewer notes
           notes-scrubbed.md             # PII-scrubbed notes
-        session-02.md
-        session-02-sources/
+        P02-Robin-28.md
+        P02-Robin-28-sources/
           ...
   Reports/
     {{Report Name}}/
@@ -30,8 +30,8 @@ Research/
 ## Naming rules
 
 - **Study folders:** Use the study name as-is, spaces are fine (Obsidian handles them)
-- **Session files:** `session-XX.md` where XX is zero-padded (01, 02, ...)
-- **Source folders:** `session-XX-sources/` matching the session number
+- **Session files:** `P{nn}-{Pseudonym}-{age}.md` (e.g. `P01-Astrid-34.md`). If age unknown: `P{nn}-{Pseudonym}.md`. Created with temp name `P{nn}-pending.md` and renamed after participant info is confirmed in step A2.
+- **Source folders:** `P{nn}-{Pseudonym}-{age}-sources/` matching the session file name
 - **Scrubbed files:** Append `-scrubbed` before the extension
 - **Participant IDs:** `P01`, `P02`, etc. Sequential per study.
 - **Report folders:** Use the report name as-is, spaces are fine
