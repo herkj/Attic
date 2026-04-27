@@ -2,7 +2,7 @@
 type: research/study
 status: active
 created: {{date}}
-taxonomy: vipps-mobilepay
+taxonomy: {{taxonomy}}
 research-questions: []
 tags: []
 ---

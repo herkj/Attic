@@ -23,4 +23,4 @@ Once you have multiple sessions, run `/study-synthesize` to find patterns across
 
 **Adding sources later:** If you get a transcript after you've already run `/analyse` on your notes, just run `/analyse` again on the session file - it will pick up any new files and re-extract with the full set of sources.
 
-**Skip the review step:** `/yolo-insight` runs the full pipeline automatically. You only choose which study to assign.
+**Skip the review step:** `/analyse` asks "Manual or Yolo?" upfront. Pick **Yolo** to run the full pipeline (extract → auto-approve → synthesize) without confirmations - you only choose which study to assign.
