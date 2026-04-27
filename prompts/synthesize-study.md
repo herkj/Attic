@@ -59,17 +59,17 @@ COMMON MISTAKES TO AVOID:
 
 ## User Prompt Template
 
-RESEARCH QUESTION: {question} (optional)
+RESEARCH QUESTION: {{question}} (optional)
 
-TOTAL SESSIONS IN STUDY: {total}
-SESSIONS WITH INSIGHTS: {with_insights}
+TOTAL SESSIONS IN STUDY: {{total}}
+SESSIONS WITH INSIGHTS: {{with_insights}}
 
-SESSION INSIGHTS ({count} total):
-{json_array_of_insights}
+SESSION INSIGHTS ({{count}} total):
+{{json_array_of_insights}}
 
 Synthesize these session insights into study-level insights.
 
-IMPORTANT: You must assign ALL {count} session insight IDs to study insights.
+IMPORTANT: You must assign ALL {{count}} session insight IDs to study insights.
 
 ## Expected Output Format
 

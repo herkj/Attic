@@ -31,11 +31,11 @@ Confirm each folder was created.
 
 ### 4. Ask about domain taxonomy
 
-Say:
+Use `AskUserQuestion`: "Do you want to set up a domain-specific taxonomy? This helps Attic tag your research with terms from your own product area."
+- **Yes - generate from websites** - I'll fetch your product/company sites and propose a taxonomy
+- **No - core taxonomy only** - I'll skip domain tags for now (you can add them later)
 
-> Do you want to set up a domain-specific taxonomy? This helps Attic tag your research with terms from your own product area. (yes/no)
-
-If no: skip to step 6.
+If "No": skip to step 6.
 
 ### 5. Generate custom taxonomy from websites
 
@@ -106,6 +106,6 @@ Then say:
 >
 > Once you have multiple sessions, run `/study-synthesize` to find patterns across all of them and answer your research questions.
 >
-> **If you want to skip the review step:** `/yolo-insight` runs the full pipeline automatically - you only choose which study to assign the session to.
+> **If you want to skip the review step:** `/analyse` asks "Manual or Yolo?" upfront. Pick **Yolo** to run the full pipeline automatically (extract → auto-approve → synthesize) - you only choose which study to assign the session to.
 >
 > **Next step:** Drop an interview file or report URL in `{vault}/inbox/` and run `/analyse`.

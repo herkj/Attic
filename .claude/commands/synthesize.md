@@ -9,7 +9,7 @@ $ARGUMENTS - Path to session file
 ## Steps
 
 ### 1. Load approved observations
-Find session file (see CLAUDE.md "File Discovery"). Collect only `[x]` observations. Need at least 2. Warn if `[?]` pending observations exist.
+Find session file (see `docs/skill-patterns.md` - File Discovery). Collect only `[x]` observations. Need at least 2. Warn if `[?]` pending observations exist.
 
 ### 2. Check for existing insights
 If ## Session Insights already has content, ask user: replace or skip?
@@ -25,7 +25,7 @@ Include `evidenceType` (behavioral/attitudinal) from the observation's **Evidenc
 Read `prompts/synthesize-session.md`. Send formatted observations. Parse the response.
 
 ### 5. Format and write insights
-For each insight, format per CLAUDE.md "Session Insight Format":
+For each insight, format per `docs/skill-patterns.md` - Session Insight Format:
 - Tags = union of supporting observations' tags (deduplicated)
 - Based on = wikilinks to observation headings: `[[#Title]]`
 

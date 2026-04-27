@@ -9,7 +9,7 @@ $ARGUMENTS - Path to session file or scrubbed transcript
 ## Steps
 
 ### 1. Load transcript and study context
-Find the scrubbed transcript (see CLAUDE.md "File Discovery"). Read study.md for research questions - these frame what "good coverage" means.
+Find the scrubbed transcript (see `docs/skill-patterns.md` - File Discovery). Read study.md for research questions - these frame what "good coverage" means.
 
 ### 2. Analyse across six dimensions
 

@@ -22,7 +22,7 @@ Otherwise, use `AskUserQuestion`: "What would you like to do?"
 
 ### 2a. Load data
 
-Find the Research root (see CLAUDE.md "File Discovery"). Read:
+Find the Research root (see `docs/skill-patterns.md` - File Discovery). Read:
 - `Research/config/learning/journal.yaml` - all review entries
 - `Research/config/learning/improve-history.yaml` - past improvement runs
 - `Research/config/learning/examples.yaml` - current example bank
@@ -75,7 +75,7 @@ Read:
 - `Research/config/learning/examples.yaml` (may not exist)
 - `Research/config/learning/preferences.yaml` (may not exist)
 - `Research/config/learning/improve-history.yaml` (may not exist)
-- All taxonomy files (follow CLAUDE.md "Taxonomy Loading" with the most commonly used taxonomy across journal entries)
+- All taxonomy files (follow `docs/skill-patterns.md` - Taxonomy Loading, using the most commonly used taxonomy across journal entries)
 
 If `journal.yaml` does not exist or has fewer than 3 entries, show "Not enough review data yet. Run `/review-observations` on at least 3 sessions before running /improve." and stop.
 

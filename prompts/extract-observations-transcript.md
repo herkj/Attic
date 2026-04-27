@@ -11,10 +11,10 @@ A transcript captures the participant's own voice. Quotes are available verbatim
 Each observation is a distinct moment or insight. One observation = one underlying insight. Do not combine unrelated evidence into a single observation - cross-source patterns are identified at synthesis.
 
 === TAXONOMY ===
-{taxonomy_section}
+{{taxonomy_section}}
 ================
 
-{learning_section}
+{{learning_section}}
 
 CLASSIFICATION RULES:
 
@@ -76,11 +76,11 @@ OBSERVATION WRITING RULES:
 
 ## User Prompt Template
 
-Extract up to {max_observations} observations from this interview transcript:
+Extract up to {{max_observations}} observations from this interview transcript:
 
-{content}
+{{content}}
 
-Focus on these areas: {focus_areas} (optional)
+Focus on these areas: {{focus_areas}} (optional)
 
 ## Expected Output Format
 

@@ -11,10 +11,10 @@ Reports differ from interview sources: the original participant data is not avai
 Each observation is a distinct finding. One observation = one distinct claim or data point from the report. Do not combine unrelated findings into a single observation.
 
 === TAXONOMY ===
-{taxonomy_section}
+{{taxonomy_section}}
 ================
 
-{learning_section}
+{{learning_section}}
 
 CLASSIFICATION RULES:
 
@@ -66,17 +66,17 @@ OBSERVATION WRITING RULES:
 
 ## User Prompt Template
 
-Extract up to {max_observations} observations from this research report:
+Extract up to {{max_observations}} observations from this research report:
 
 **Report metadata:**
-- Source: {source_org}
-- Date: {source_date}
-- Methodology: {methodology}
+- Source: {{source_org}}
+- Date: {{source_date}}
+- Methodology: {{methodology}}
 
 **Report content:**
-{content}
+{{content}}
 
-Focus on these areas: {focus_areas} (optional)
+Focus on these areas: {{focus_areas}} (optional)
 
 ## Expected Output Format
 

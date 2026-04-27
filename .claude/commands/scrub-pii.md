@@ -10,7 +10,7 @@ $ARGUMENTS - Path to a source file to scrub
 
 ### 1. Load the "do not redact" list from taxonomy
 
-Follow CLAUDE.md "Taxonomy Loading" pattern to load the merged taxonomy. Extract all `name` and `aliases` values from:
+Follow `docs/skill-patterns.md` - Taxonomy Loading to load the merged taxonomy. Extract all `name` and `aliases` values from:
 - `product_areas`
 - `external_entities`
 

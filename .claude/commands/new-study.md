@@ -10,7 +10,7 @@ $ARGUMENTS - Study name (e.g. "Checkout Redesign", "Merchant Onboarding")
 
 ### 1. Create the study folder
 
-- Find the vault Research/Studies/ directory (see CLAUDE.md "File Discovery")
+- Find the vault Research/Studies/ directory (see `docs/skill-patterns.md` - File Discovery)
 - Create `Research/Studies/{Study Name}/` folder
 - Create `sessions/` subfolder inside it
 - Copy the study template from `templates/study.md`, filling in `{{study-name}}` and `{{date}}`
@@ -69,7 +69,7 @@ pico:
   outcome: "..."
 ```
 
-In `/analyse` step 4, when `pico` is present in study.md frontmatter, pass the Outcome field as an additional `{focus_areas}` instruction to the extraction prompt: "Focus extraction on: {pico.outcome}". This keeps observations anchored to what the study is trying to answer.
+In `/analyse` step 4, when `pico` is present in study.md frontmatter, pass the Outcome field as an additional `{{focus_areas}}` instruction to the extraction prompt: "Focus extraction on: {pico.outcome}". This keeps observations anchored to what the study is trying to answer.
 
 ### 5. Hypotheses
 
