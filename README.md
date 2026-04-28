@@ -2,6 +2,8 @@
 
 A human-in-the-loop AI assistant for UX research. Drop in interview notes, get structured observations and insights - all traceable back to evidence.
 
+New here? Start with `docs/handover.md`.
+
 ## Get started
 
 1. Clone this repo anywhere
