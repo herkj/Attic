@@ -27,6 +27,7 @@ Attic was started as an internal experiment to test whether Claude Code skills, 
 Attic started as a full application with frontend navigation and interaction design work. That approach worked technically, but it introduced complexity that was not directly related to research quality.
 
 The switch to skills-based CLI reduced the problem to its core:
+
 - Put source material in a folder.
 - Run slash commands with clear rules.
 - Save structured outputs in another folder.
@@ -59,11 +60,11 @@ Attic follows Atomic Research because it is concrete, practical, and easy to enf
 The next owner should focus on two themes first:
 
 1. **Quality loop maturity**
-   - Build and run the eval harness proposed in `docs/proposals/eval-harness.md`.
+  - Build and run the eval harness proposed in `docs/proposals/eval-harness.md`.
 2. **Output structure**
-   - Improve how outputs are stored and discovered.
-   - Current state is mostly one markdown file per study/session.
-   - Better discoverability is likely needed for long-term cross-team value.
+  - Improve how outputs are stored and discovered.
+  - Current state is mostly one markdown file per study/session.
+  - Better discoverability is likely needed for long-term cross-team value.
 
 See `docs/proposals/improved-output-format.md` for options and recommendations.
 

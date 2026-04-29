@@ -48,7 +48,7 @@ Research/
 - **Fixed transcript files:** Append `-fixed` before the extension (e.g. `transcript-fixed.md`, written by `/fix-transcript`).
 - **Participant IDs:** `P01`, `P02`, etc. Sequential per study.
 - **Report folders:** Use the report name as-is, spaces are fine.
-- **Report sources:** `report-sources/` contains `original.*` and `content.md`.
+- **Report sources:** `report-sources/` contains `original.`* and `content.md`.
 
 ---
 
@@ -87,13 +87,13 @@ Skills that need taxonomy follow this pattern:
 4. If the field value is not "core", also load `taxonomy/{value}.yaml`.
 5. Find the Research root (see File Discovery). Check for any `.yaml` files in `Research/config/taxonomy/`. If any exist, merge them as a third layer on top of the previous two. Multiple files are all merged - this allows teams to maintain separate taxonomy files per domain or topic.
 6. Merge and format as a flat list per category:
-   ```
+  ```
    ## Product Area
    - Payment API (aliases: payment-api, betalings-api)
    - Checkout (aliases: checkout, kasse)
    ## Emotion
    - Frustration (aliases: frustrasjon)
-   ```
+  ```
 
 ---
 
@@ -114,6 +114,7 @@ Interpreted statement about what was observed.
 Status markers: `[?]` pending, `[x]` approved, `[-]` rejected
 
 Evidence type:
+
 - `behavioral` - quote or description shows what the participant actually did
 - `attitudinal` - stated opinion, preference, or belief; or an observer's interpretation
 
@@ -151,6 +152,7 @@ Description of the pattern observed across sessions.
 ```
 
 Confidence criteria:
+
 - **High:** 3+ sessions, at least one session insight has behavioral evidence strength, recent data
 - **Medium:** 2 sessions, OR 3+ sessions but all attitudinal evidence
 - **Low:** single session, data older than 12 months, or primarily inferential
@@ -162,6 +164,7 @@ Confidence criteria:
 Each participant gets a code + a memorable pseudonym: `P01 - Astrid`, `P02 - Robin`.
 
 The pseudonym is picked from `participant-names.yaml` in the Attic root:
+
 - If participant country is known, pick from that country's list.
 - If participant gender is known, pick from the matching gender list within that country.
 - If gender is unknown, pick from the shared `gender_neutral` list (one list, all countries).
@@ -237,12 +240,14 @@ Each `/improve` run increments a generation counter. When `/analyse` runs extrac
 
 Computed from journal entries by `/improve`:
 
-| Metric | Formula | Measures | Better = |
-|--------|---------|----------|----------|
-| Miss rate | `added_by_user / (approved + added_by_user)` | Things the human wanted that the AI didn't surface | Lower |
-| Noise rate | `rejected / extracted` | Things the AI surfaced that the human didn't want | Lower |
-| Edit rate | `edited_by_user / approved` | How often the first pass needed correction | Lower |
-| Tag accuracy | `1 - (tag_edits / approved)` | Whether the AI assigns the right tags | Higher |
+
+| Metric       | Formula                                      | Measures                                           | Better = |
+| ------------ | -------------------------------------------- | -------------------------------------------------- | -------- |
+| Miss rate    | `added_by_user / (approved + added_by_user)` | Things the human wanted that the AI didn't surface | Lower    |
+| Noise rate   | `rejected / extracted`                       | Things the AI surfaced that the human didn't want  | Lower    |
+| Edit rate    | `edited_by_user / approved`                  | How often the first pass needed correction         | Lower    |
+| Tag accuracy | `1 - (tag_edits / approved)`                 | Whether the AI assigns the right tags              | Higher   |
+
 
 Miss rate is the most important. A system that never misses what the human would catch is doing its job, even if it produces some noise. Noise is cheap to filter. Misses are invisible and unrecoverable.
 
@@ -260,3 +265,4 @@ When `/analyse` reaches the taxonomy loading step, it also checks for learning d
 1. Check for `Research/config/learning/examples.yaml` and `Research/config/learning/preferences.yaml`.
 2. If either exists, build `{{learning_section}}` with up to 3 gold examples, up to 3 anti-examples, and all preference notes. Format as a block that gets injected into extraction prompts after the taxonomy section.
 3. If neither exists (first use, no learning data yet), set `{{learning_section}}` to empty string. The placeholder in the prompt stays blank.
+
