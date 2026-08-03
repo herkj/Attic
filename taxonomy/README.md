@@ -7,7 +7,7 @@ The taxonomy is split into two layers:
 
 This repo ships only `core.yaml`. Domain taxonomy is user-specific and lives in your vault, not here.
 
-Anything tied to a specific business, product, or industry - product areas, competitors and other external entities, pricing/commercial concepts - belongs in a domain taxonomy, **not** in `core.yaml`. Keeping core universal is what lets Attic work unchanged across any domain. Domain files can define categories such as `product_areas` and `external_entities`, which some skills (PII scrubbing, transcript fixing) and prompts use when present.
+Anything tied to a specific business, product, or industry - named product areas, competitors, and other external entities - belongs in a domain taxonomy, **not** in `core.yaml`. Domain files can define categories such as `product_areas` and `external_entities`, which some skills (PII scrubbing, transcript fixing) and prompts use when present.
 
 ## Adding a domain taxonomy
 
