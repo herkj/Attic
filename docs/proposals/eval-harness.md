@@ -71,7 +71,7 @@ Loose specification rather than exact-match. LLM output varies in wording even a
 # tests/fixtures/transcript-merchant-onboarding-01.gold.yaml
 fixture: transcript-merchant-onboarding-01
 source_type: transcript
-taxonomy: vipps-mobilepay
+taxonomy: core
 
 # Observations the extraction MUST surface. Match on title keywords + type.
 # Required tags is a subset - the output may have additional tags as long as

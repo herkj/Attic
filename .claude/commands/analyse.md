@@ -142,11 +142,10 @@ Follow `docs/skill-patterns.md` - Taxonomy Loading. Read research questions from
 If study.md frontmatter contains a `pico` block, append the `outcome` field to `{{focus_areas}}`.
 
 If the study has no taxonomy set and `{auto_mode}` is false:
-- Glob `taxonomy/*.yaml` in the Attic project root
+- Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `Research/config/taxonomy/*.yaml` in the vault
 - Use `AskUserQuestion`: "Which taxonomy should I use?"
-  - **vipps-mobilepay** - domain-specific tags for Vipps MobilePay (show as default/first)
-  - **core** - universal tags only
-  - (any other .yaml files found)
+  - (any domain `.yaml` files found - show these first if present)
+  - **core** - universal tags only (default if no domain files exist)
 
 **Load learning data (see `docs/skill-patterns.md` - Learning System):**
 1. Find the Research root. Check for `Research/config/learning/examples.yaml` and `Research/config/learning/preferences.yaml`.
@@ -275,11 +274,10 @@ If `{auto_mode}` is true: write inferences directly.
 Follow `docs/skill-patterns.md` - Taxonomy Loading.
 
 If `{auto_mode}` is false:
-- Glob `taxonomy/*.yaml` in the Attic project root
+- Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `Research/config/taxonomy/*.yaml` in the vault
 - Use `AskUserQuestion`: "Which taxonomy should I use?"
-  - **vipps-mobilepay** - domain-specific tags (default/first)
-  - **core** - universal tags only
-  - (any other .yaml files found)
+  - (any domain `.yaml` files found - show these first if present)
+  - **core** - universal tags only (default if no domain files exist)
 
 **Load learning data:** Same as Pipeline A step A4 - check for `Research/config/learning/examples.yaml` and `preferences.yaml`, build `{{learning_section}}` if they exist, set to empty string if not.
 

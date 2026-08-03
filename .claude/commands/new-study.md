@@ -17,12 +17,11 @@ $ARGUMENTS - Study name (e.g. "Checkout Redesign", "Merchant Onboarding")
 
 ### 2. Choose taxonomy
 
-Glob `taxonomy/*.yaml` in the Attic project root.
+Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `Research/config/taxonomy/*.yaml` in the vault.
 
 Use `AskUserQuestion`: "Which taxonomy should I use?"
-- **vipps-mobilepay** - domain-specific tags for Vipps MobilePay (show first as default if file exists)
-- **core** - universal tags only
-- (any other .yaml files found)
+- (any domain `.yaml` files found - show these first if present)
+- **core** - universal tags only (default if no domain files exist)
 
 Set the `taxonomy` frontmatter field.
 
@@ -46,9 +45,9 @@ Write under ## Research Questions. Also populate the `research-questions` frontm
 Ask: "Do you want to define a structured scope for this study? This helps keep extraction focused. (optional - press enter to skip)"
 
 If the user says yes or provides any input, prompt for each PICO component:
-- **Population:** Who are we studying? (e.g. "Norwegian SME merchants, first 30 days after signup")
-- **Phenomenon:** What behavior, experience, or product area are we exploring? (e.g. "Vipps PoS onboarding")
-- **Context:** Under what conditions or constraints? (e.g. "no prior Vipps experience, self-service signup")
+- **Population:** Who are we studying? (e.g. "SME merchants, first 30 days after signup")
+- **Phenomenon:** What behavior, experience, or product area are we exploring? (e.g. "point-of-sale onboarding")
+- **Context:** Under what conditions or constraints? (e.g. "no prior product experience, self-service signup")
 - **Outcome:** What do we want to learn or be able to say? (e.g. "Where participants get stuck and why")
 
 Write the PICO block under ## Scope in study.md:

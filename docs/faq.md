@@ -12,7 +12,7 @@ No. Edit the `*-scrubbed.md` file manually, then continue with `/analyse` from t
 
 Yes. Prompts are written in English and can process English and Norwegian content. Keep source language as-is. Do not translate source content before analysis.
 
-## 4) How can a study use another taxonomy than Vipps?
+## 4) How can a study use a specific domain taxonomy?
 
 Set `taxonomy:` in the study frontmatter (for example `core` or another domain file name). `/analyse` loads core plus the selected domain file, then merges any `Research/config/taxonomy/*.yaml` overrides.
 

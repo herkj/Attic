@@ -41,7 +41,7 @@ If "No": skip to step 6.
 
 Ask:
 
-> What would you like to name this taxonomy file? This name helps identify it when you have multiple taxonomies. (e.g. "vipps-mobilepay", "consumer-app", "merchant-tools")
+> What would you like to name this taxonomy file? This name helps identify it when you have multiple taxonomies. (e.g. "consumer-app", "merchant-tools", "payments")
 
 Store as `{taxonomy_name}`. The file will be saved as `{taxonomy_name}.yaml`.
 

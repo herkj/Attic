@@ -69,9 +69,8 @@ When Attic lives inside `{vault}/Attic/`, Research data is at `../Research/` rel
 
 The `taxonomy` field in `study.md` frontmatter tells skills which domain taxonomy to load:
 
-- `vipps-mobilepay` -> loads `core.yaml` + `vipps-mobilepay.yaml`
 - `core` -> loads only `core.yaml` (no domain-specific tags)
-- `<custom>` -> loads `core.yaml` + `<custom>.yaml`
+- `<domain>` -> loads `core.yaml` + the domain file `<domain>.yaml` (found in the Attic repo `taxonomy/` or the vault's `Research/config/taxonomy/`)
 
 On top of those, any `.yaml` files in the vault's `Research/config/taxonomy/` are merged as a third layer (team-shared, not in this repo).
 
@@ -81,10 +80,10 @@ On top of those, any `.yaml` files in the vault's `Research/config/taxonomy/` ar
 
 Skills that need taxonomy follow this pattern:
 
-1. Read the study.md frontmatter `taxonomy` field (e.g. "vipps-mobilepay").
+1. Read the study.md frontmatter `taxonomy` field (e.g. "core" or a domain name).
 2. Find the Attic project root via Glob for `**/taxonomy/core.yaml`.
 3. Always load `taxonomy/core.yaml`.
-4. If the field value is not "core", also load `taxonomy/{value}.yaml`.
+4. If the field value is not "core", also load the matching domain file - check `taxonomy/{value}.yaml` in the Attic repo, then `Research/config/taxonomy/{value}.yaml` in the vault.
 5. Find the Research root (see File Discovery). Check for any `.yaml` files in `Research/config/taxonomy/`. If any exist, merge them as a third layer on top of the previous two. Multiple files are all merged - this allows teams to maintain separate taxonomy files per domain or topic.
 6. Merge and format as a flat list per category:
   ```

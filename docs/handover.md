@@ -16,7 +16,7 @@ This document is the primary handover entry point for Attic. It explains why Att
 
 Attic exists to make user research insights reusable across studies and teams, without buying a heavyweight external platform.
 
-Current research practice often leaves findings trapped inside workshop boards and thick artifacts that are hard to search across teams. Commercial tools can solve parts of this problem, but they are often expensive, complex, and not tailored to Vipps' internal way of working.
+Current research practice often leaves findings trapped inside workshop boards and thick artifacts that are hard to search across teams. Commercial tools can solve parts of this problem, but they are often expensive, complex, and not tailored to an organization's internal way of working.
 
 Attic was started as an internal experiment to test whether Claude Code skills, markdown, and strict research conventions could deliver a practical alternative.
 
@@ -70,7 +70,7 @@ See `docs/proposals/improved-output-format.md` for options and recommendations.
 
 ## Repository ownership note
 
-At time of writing, the repository has been hosted in a personal GitHub account (`herkj/Attic`) and is expected to be copied/moved into a Vipps organization repository as part of handover.
+At time of writing, the repository has been hosted in a personal GitHub account (`herkj/Attic`) and is expected to be copied/moved into an organization repository as part of handover.
 
 Treat links in old commit messages as potentially stale after transfer.
 

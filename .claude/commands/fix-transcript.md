@@ -18,8 +18,8 @@ Read the file at $ARGUMENTS. Determine the transcript source if possible from fi
 
 Scan the transcript for likely transcription errors specific to the domain. Focus on:
 
-- **Product names:** Vipps, MobilePay, BankID, Vipps eCom, Vipps PoS, Vipps Checkout, Kort & Godt, Strex, Klarna, Swish - ASR often mangles these
-- **Technical terms:** webhook, API, QR-kode, betalingsløsning, refusjon, oppgjør, kasseapparat
+- **Product names:** brand, product, and company names from the study's domain - ASR often mangles these. Draw candidates from the study's taxonomy (product_areas and external_entities) if available.
+- **Technical terms:** domain jargon, acronyms, and technical vocabulary (e.g. webhook, API, QR-kode, and similar terms in the interview's language)
 - **Norwegian proper nouns** that ASR trained on English data will mangle
 - **Speaker label errors:** "Henrik:" mis-transcribed as "Henry:" or "Hendrik:"
 - **Repeated filler artifacts:** "[inaudible]", "[crosstalk]", "[laughter]" - note these but don't remove them
@@ -58,7 +58,7 @@ Present a summary of all changes made:
 
 ### Product/domain names corrected
 - "henry" -> "Henrik" (speaker label, 3 occurrences)
-- "vips" -> "Vipps" (product name, 7 occurrences)
+- "check out" -> "Checkout" (product name, 7 occurrences)
 - "bank id" -> "BankID" (product name, 2 occurrences)
 
 ### Context corrections
