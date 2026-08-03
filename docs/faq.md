@@ -8,9 +8,9 @@ Run `/review-observations` and reject or edit weak entries. Add missing observat
 
 No. Edit the `*-scrubbed.md` file manually, then continue with `/analyse` from that scrubbed source. Do not overwrite the raw source file.
 
-## 3) Can Attic handle English transcripts?
+## 3) What languages can Attic handle?
 
-Yes. Prompts are written in English and can process English and Norwegian content. Keep source language as-is. Do not translate source content before analysis.
+Any language. The skill and prompt instructions are written in English, but they process source content in its original language and never translate it. Language is auto-detected; keep source content as-is. You can optionally set `language:` in a study's frontmatter as a hint.
 
 ## 4) How can a study use a specific domain taxonomy?
 

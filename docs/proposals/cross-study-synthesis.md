@@ -57,7 +57,7 @@ Without this layer, Attic cannot deliver its intended cross-team value.
 ```markdown
 # Cross-Study Insights
 
-## Pattern: Merchant onboarding friction repeats
+## Pattern: Onboarding friction repeats
 **Prevalence:** 6 of 8 studies
 **Confidence:** high
 **Tags:** Onboarding, Frustration
@@ -65,10 +65,10 @@ Without this layer, Attic cannot deliver its intended cross-team value.
 
 Description...
 
-## Contradiction: Checkout preference differs by segment
+## Contradiction: Preference differs by segment
 **Prevalence:** 3 studies vs 2 studies
 **Confidence:** medium
-**Tags:** Checkout, Preference
+**Tags:** Preference
 **Based on:** [[Study D]], [[Study E]], [[Study F]]
 
 Description...
@@ -114,6 +114,6 @@ Description...
 
 ## Out of scope
 
-- Auto-prioritization by business impact score.
+- Auto-prioritization by user impact score.
 - Integration with external analytics in v1.
 - Real-time updating as each new session lands.

@@ -46,9 +46,9 @@ EXTRACTION RULES:
 
 **When a note describes a moment of visible success or delight** (participant smiled, said "oh nice", completed quickly without hesitation), extract as a positive observation - do not only extract friction.
 
-**When a participant explicitly names or references a competitor, bank, or external service,** you MUST tag it with the corresponding External Entities tag from the taxonomy.
+**When a participant explicitly names or references an external party** (a competitor, a third-party service, another organization), and the taxonomy defines an External Entities (or equivalent) category, tag it with the corresponding External Entities tag. If the taxonomy has no such category, note the named party in the observation text instead.
 
-**When a participant mentions an impact on their business or personal life** (lost revenue, extra time, stress, workaround costs), include that impact explicitly in the observation text.
+**When a participant mentions an impact on their work, life, or goals** (time lost, stress, cost, rework, missed outcomes), include that impact explicitly in the observation text.
 
 NOTES-SPECIFIC EVIDENCE RULES:
 

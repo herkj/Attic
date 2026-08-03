@@ -18,7 +18,7 @@ Research findings are strongest when triangulated with operational data. Today, 
 
 - customer support trends,
 - product analytics,
-- transactional behavior,
+- usage behavior,
 - satisfaction metrics.
 
 Unifying these sources can improve prioritization, confidence, and cross-team trust in insights.

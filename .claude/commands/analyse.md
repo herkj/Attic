@@ -4,7 +4,7 @@ Single entry point for all source analysis. Asks for source type upfront, then r
 
 ## Inputs
 
-$ARGUMENTS - Path to a file in `Research/inbox/`, a session file, a source file, or a URL (http/https). If omitted, auto-scan the inbox.
+$ARGUMENTS - Path to a file in `{vaultRoot}/inbox/`, a session file, a source file, or a URL (http/https). If omitted, auto-scan the inbox.
 
 ---
 
@@ -55,16 +55,16 @@ Set `{source_type}` to one of: `transcript`, `notes`, `report`.
 ### A1. Find the source material
 
 **If $ARGUMENTS is empty (no path given):**
-- Glob `Research/inbox/` for all files (exclude `processed/` subfolder).
+- Glob `{vaultRoot}/inbox/` for all files (exclude `processed/` subfolder).
 - If no files found: tell the user the inbox is empty and exit.
 - If one file found: use it automatically, tell the user.
 - If multiple files found: use `AskUserQuestion` to let the user pick which file(s) to process. Allow selecting all or a subset.
 
-**If $ARGUMENTS points to a file in `Research/inbox/`:**
+**If $ARGUMENTS points to a file in `{vaultRoot}/inbox/`:**
 - Use that file. This is a new, unprocessed session source.
 
 After identifying the source file(s):
-- Glob `Research/Studies/*/study.md` to get available studies.
+- Glob `{vaultRoot}/Studies/*/study.md` to get available studies.
 - Use `AskUserQuestion`: "Which study does this session belong to?"
   - List each study by name (one option per study)
   - Add **"+ New study"** as the last option
@@ -95,8 +95,8 @@ If running (auto or user confirms), run `/fix-transcript` on the source file. Th
 ### A2. Auto-fill participant info
 
 Read the source content. Infer what you can:
-- **role** (merchant, consumer, partner, agency, developer, etc.)
-- **country** (location mentions, currency, language cues)
+- **role** (e.g. end user, admin, customer, partner, developer - whatever fits the domain)
+- **country / region** (location mentions, language cues)
 - **age-range** and **gender** (if mentioned)
 
 If `{auto_mode}` is false: present inferences and use `AskUserQuestion` "Does this participant info look right?" with options:
@@ -142,19 +142,19 @@ Follow `docs/skill-patterns.md` - Taxonomy Loading. Read research questions from
 If study.md frontmatter contains a `pico` block, append the `outcome` field to `{{focus_areas}}`.
 
 If the study has no taxonomy set and `{auto_mode}` is false:
-- Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `Research/config/taxonomy/*.yaml` in the vault
+- Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `{vaultRoot}/config/taxonomy/*.yaml` in the vault
 - Use `AskUserQuestion`: "Which taxonomy should I use?"
   - (any domain `.yaml` files found - show these first if present)
   - **core** - universal tags only (default if no domain files exist)
 
 **Load learning data (see `docs/skill-patterns.md` - Learning System):**
-1. Find the Research root. Check for `Research/config/learning/examples.yaml` and `Research/config/learning/preferences.yaml`.
+1. Resolve the vault root. Check for `{vaultRoot}/config/learning/examples.yaml` and `{vaultRoot}/config/learning/preferences.yaml`.
 2. If either file exists, build `{{learning_section}}` formatted as:
    ```
    === LEARNING FROM PREVIOUS SESSIONS ===
 
    EXAMPLES OF GOOD OBSERVATIONS (approved by reviewers):
-   - "observation text" (type: workaround, tags: Tag1, Tag2) - why: "clear behavioral evidence with business impact"
+   - "observation text" (type: workaround, tags: Tag1, Tag2) - why: "clear behavioral evidence with concrete user impact"
 
    EXAMPLES OF OBSERVATIONS TO AVOID (rejected by reviewers):
    - "observation text" (type: observation) - rejected because: "too vague, no actionable evidence"
@@ -169,7 +169,7 @@ If the study has no taxonomy set and `{auto_mode}` is false:
 3. If neither file exists (no learning data yet), set `{{learning_section}}` to empty string. The prompt placeholder will be blank - do not include the `=== LEARNING ===` wrapper.
 
 **Record generation:**
-1. Check for `Research/config/learning/improve-history.yaml`. If it exists, count the number of entries to determine the current generation number. If it does not exist, generation is `0`.
+1. Check for `{vaultRoot}/config/learning/improve-history.yaml`. If it exists, count the number of entries to determine the current generation number. If it does not exist, generation is `0`.
 2. Write `learning_generation: {generation}` to the session file frontmatter.
 
 *Manual mode checkpoint.*
@@ -188,7 +188,7 @@ Apply the prompt with:
 - `{{max_observations}}`: 30 (across all sources combined)
 - `{{source_label}}`: the source type (e.g. "transcript", "observer notes", "interviewer notes")
 - `{{content}}`: scrubbed content of that source file
-- `{{focus_areas}}`: research questions from study.md, or "general exploration"
+- `{{focus_areas}}`: research questions from study.md, or "general exploration". If the study frontmatter has a non-empty `language` field, append: "Source language: {language}. Preserve all quotes and observation text in the source language - do not translate."
 
 Before sending: verify no `{{...}}` placeholders remain in the assembled prompt (see `docs/skill-patterns.md` - Prompt Substitution Rule).
 
@@ -213,7 +213,7 @@ Then immediately run synthesis: read `prompts/synthesize-session.md` and apply i
 
 ### A7. Move to processed
 
-If the source came from `Research/inbox/`, move it to `Research/inbox/processed/`. Create `processed/` if it doesn't exist.
+If the source came from `{vaultRoot}/inbox/`, move it to `{vaultRoot}/inbox/processed/`. Create `processed/` if it doesn't exist.
 
 ### A8. Summary
 
@@ -235,7 +235,7 @@ If the user picks review-observations, immediately run that skill on the session
 
 ### B1. Choose study context
 
-Glob `Research/Studies/*/study.md` to list available studies.
+Glob `{vaultRoot}/Studies/*/study.md` to list available studies.
 
 Use `AskUserQuestion`: "What study context should I use for extraction?"
 - List each study by name
@@ -274,20 +274,20 @@ If `{auto_mode}` is true: write inferences directly.
 Follow `docs/skill-patterns.md` - Taxonomy Loading.
 
 If `{auto_mode}` is false:
-- Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `Research/config/taxonomy/*.yaml` in the vault
+- Glob for domain files: `taxonomy/*.yaml` in the Attic project root and `{vaultRoot}/config/taxonomy/*.yaml` in the vault
 - Use `AskUserQuestion`: "Which taxonomy should I use?"
   - (any domain `.yaml` files found - show these first if present)
   - **core** - universal tags only (default if no domain files exist)
 
-**Load learning data:** Same as Pipeline A step A4 - check for `Research/config/learning/examples.yaml` and `preferences.yaml`, build `{{learning_section}}` if they exist, set to empty string if not.
+**Load learning data:** Same as Pipeline A step A4 - check for `{vaultRoot}/config/learning/examples.yaml` and `preferences.yaml`, build `{{learning_section}}` if they exist, set to empty string if not.
 
 **Record generation:** Same as Pipeline A step A4 - read generation from `improve-history.yaml`, write `learning_generation` to report.md frontmatter.
 
 ### B4. Create report structure
 
-Find the vault Research path (see `docs/skill-patterns.md` - File Discovery). Create:
+Resolve the vault root (see `docs/skill-patterns.md` - Vault Root Resolution). Create:
 ```
-Research/Reports/{Report-Name}/
+{vaultRoot}/Reports/{Report-Name}/
   report.md              # from templates/report.md
   report-sources/
     original.{ext}       # copy of source file (file input only)
@@ -311,7 +311,7 @@ Read `prompts/extract-observations-report.md`. Apply with:
 - `{{max_observations}}`: 30
 - `{{content}}`: converted markdown from step B5
 - `{{source_org}}`, `{{source_date}}`, `{{methodology}}`: from step B2
-- `{{focus_areas}}`: study RQs if study context chosen; user's text if custom; "general exploration" if general
+- `{{focus_areas}}`: study RQs if study context chosen; user's text if custom; "general exploration" if general. Always append: "Preserve all quotes and observation text in the source language - do not translate."
 
 Before sending: verify no `{{...}}` placeholders remain in the assembled prompt (see `docs/skill-patterns.md` - Prompt Substitution Rule).
 
@@ -325,7 +325,7 @@ Format each observation per `docs/skill-patterns.md` - Observation Format (all m
 
 ### B8. Move to processed
 
-If the source came from `Research/inbox/`, move it to `Research/inbox/processed/`. Create `processed/` if it doesn't exist.
+If the source came from `{vaultRoot}/inbox/`, move it to `{vaultRoot}/inbox/processed/`. Create `processed/` if it doesn't exist.
 
 Skip if the source was a URL or a file outside the inbox.
 

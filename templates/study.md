@@ -3,6 +3,7 @@ type: research/study
 status: active
 created: {{date}}
 taxonomy: {{taxonomy}}
+language: {{language}}
 research-questions: []
 tags: []
 ---

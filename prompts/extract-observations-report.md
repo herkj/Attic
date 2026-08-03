@@ -40,7 +40,7 @@ EXTRACTION RULES:
 
 **When a finding is framed as a recommendation or "brands should...",** extract the underlying user behavior or need that motivates the recommendation - not the recommendation itself.
 
-**When a report explicitly names a competitor, bank, or external service,** you MUST tag it with the corresponding External Entities tag from the taxonomy.
+**When a report explicitly names an external party** (a competitor, a third-party service, another organization), and the taxonomy defines an External Entities (or equivalent) category, tag it with the corresponding External Entities tag. If the taxonomy has no such category, note the named party in the observation text instead.
 
 **When the same finding is stated multiple times in the report** (executive summary + detail section), extract it once - do not duplicate.
 

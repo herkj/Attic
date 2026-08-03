@@ -50,12 +50,12 @@ An eval is "successful" when:
 ```
 tests/
   fixtures/
-    transcript-merchant-onboarding-01.md          # an anonymised real transcript
-    transcript-merchant-onboarding-01.gold.yaml   # expected output spec
-    notes-checkout-redesign-02.md                 # observer notes fixture
-    notes-checkout-redesign-02.gold.yaml
-    report-nordic-payments-survey.md              # report fixture
-    report-nordic-payments-survey.gold.yaml
+    transcript-onboarding-study-01.md          # an anonymised real transcript
+    transcript-onboarding-study-01.gold.yaml   # expected output spec
+    notes-search-redesign-02.md                 # observer notes fixture
+    notes-search-redesign-02.gold.yaml
+    report-industry-survey.md              # report fixture
+    report-industry-survey.gold.yaml
   runs/
     2026-04-27-gen0.yaml                          # logged eval results, one per run
     2026-05-04-gen1.yaml
@@ -68,8 +68,8 @@ The `tests/fixtures/` folder is committed. `tests/runs/` should be either commit
 Loose specification rather than exact-match. LLM output varies in wording even at temperature 0; we want to check **which insights got surfaced**, not whether the wording is byte-identical.
 
 ```yaml
-# tests/fixtures/transcript-merchant-onboarding-01.gold.yaml
-fixture: transcript-merchant-onboarding-01
+# tests/fixtures/transcript-onboarding-study-01.gold.yaml
+fixture: transcript-onboarding-study-01
 source_type: transcript
 taxonomy: core
 
@@ -82,15 +82,15 @@ must_find:
     required_tags: ["Login"]
     why: "Most-cited friction point, mentioned twice in transcript"
 
-  - title_keywords: ["screenshot", "reconcil"]
+  - title_keywords: ["spreadsheet", "track"]
     type: workaround
-    required_tags: ["Settlement"]
-    why: "Concrete behavioural workaround with business impact"
+    required_tags: ["Workaround"]
+    why: "Concrete behavioural workaround with clear user impact"
 
-  - title_keywords: ["BankID"]
+  - title_keywords: ["export"]
     type: observation
-    required_tags: ["BankID"]
-    why: "Must tag external entity from taxonomy"
+    required_tags: []
+    why: "External service named - tag it if the taxonomy defines External Entities"
 
 # Observations the extraction MUST NOT surface (over-fragmentation, vague,
 # leading-question artefacts, etc.). Match on title keywords.
@@ -156,7 +156,7 @@ generation: 0
 prompt_version: "8104be5"  # git SHA at time of run
 overall: pass
 fixtures:
-  - fixture: transcript-merchant-onboarding-01
+  - fixture: transcript-onboarding-study-01
     extracted_count: 14
     match_rate: 0.86          # 6 of 7 must_find
     false_positive_rate: 0.0
@@ -165,14 +165,14 @@ fixtures:
     tag_violations: 0
     matched_must_find:
       - "password reset / problem"
-      - "screenshot reconciliation / workaround"
+      - "spreadsheet tracking / workaround"
       ...
     missed_must_find:
-      - "BankID retry / observation - nothing matched"
+      - "export retry / observation - nothing matched"
     leaked_must_not_extract: []
 
 diff_vs_previous:
-  - fixture: transcript-merchant-onboarding-01
+  - fixture: transcript-onboarding-study-01
     match_rate_delta: +0.14   # was 0.72 in gen-1
     false_positive_rate_delta: 0
 ```
@@ -187,7 +187,7 @@ Estimated effort: 1-2 days for v1, including writing the first 2 fixtures.
 
 The hardest part is finding fixtures. Pick from sessions you've already reviewed thoroughly (gold answers are basically the approved observations from `/review-observations`). Aim for variety:
 
-- One Norwegian transcript
+- One interview transcript (ideally in a non-English language, to exercise language preservation)
 - One observer-notes set
 - One report or article (optional in v1)
 

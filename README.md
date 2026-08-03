@@ -2,6 +2,8 @@
 
 A human-in-the-loop AI assistant for UX research. Drop in interview notes, get structured observations and insights - all traceable back to evidence.
 
+Attic is domain-, language-, and region-agnostic. You configure it for your own context per project via a taxonomy (generated during setup); source content is analysed in its original language and never translated, and participant pseudonyms are generated to fit any region - no lists to maintain.
+
 New here? Start with `docs/handover.md`.
 
 ## Get started

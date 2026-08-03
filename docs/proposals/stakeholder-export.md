@@ -53,7 +53,7 @@ Without export, findings are harder to activate.
 ## Suggested report structure
 
 ```markdown
-# Study Brief: Merchant Onboarding
+# Study Brief: Onboarding Study
 
 ## Executive Summary
 - 3-5 bullets in plain language
@@ -99,7 +99,7 @@ What happened, prevalence, confidence, why it matters.
 1. Should export include direct quotes by default or behind a toggle?
 2. Is one template enough, or should each audience have its own template?
 3. Should a PDF variant be generated in v1 or markdown only?
-4. Should export include a one-paragraph business impact estimate?
+4. Should export include a one-paragraph user impact estimate?
 
 ---
 

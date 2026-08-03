@@ -62,7 +62,7 @@ If 2+ approved, suggest `/synthesize`. If pending remain, note they can re-run t
 
 ### 6. Log to learning journal
 
-After the final summary, append a learning entry to `Research/config/learning/journal.yaml`. Create the directory and file if they don't exist.
+After the final summary, append a learning entry to `{vaultRoot}/config/learning/journal.yaml`. Create the directory and file if they don't exist.
 
 1. Read the session file frontmatter to get the `learning_generation` value (default `0` if not set).
 2. Determine the study name and session identifier from the file path.
@@ -98,7 +98,7 @@ Only include `rejections`, `additions`, and `tag_edits` sections if there are en
 
 ### 7. Improvement nudge
 
-Check for `Research/config/learning/improve-history.yaml`. Count how many journal entries exist since the last `/improve` run (by comparing dates, or counting all entries if no improve run has ever happened).
+Check for `{vaultRoot}/config/learning/improve-history.yaml`. Count how many journal entries exist since the last `/improve` run (by comparing dates, or counting all entries if no improve run has ever happened).
 
 If 5 or more sessions have been reviewed since the last `/improve` run (or ever, if no run exists), show:
 

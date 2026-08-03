@@ -44,11 +44,9 @@ EXTRACTION RULES:
 
 **When a participant asks a question back to the interviewer, backtracks, or says "wait, so..."** this signals confusion - extract as type: problem with behavioral evidence, even if the participant did not explicitly say they were confused.
 
-**When a participant mentions an impact on their business or personal life** (lost revenue, extra time, stress, workaround costs), include that impact explicitly in the observation text.
+**When a participant mentions an impact on their work, life, or goals** (time lost, stress, cost, rework, missed outcomes), include that impact explicitly in the observation text.
 
-**When a participant explicitly names or references a competitor, bank, or external service,** you MUST tag it with the corresponding External Entities tag from the taxonomy.
-
-**If a participant mentions an impact on their business or personal life** (lost revenue, extra time, stress, workaround costs), include that impact explicitly in the observation text.
+**When a participant explicitly names or references an external party** (a competitor, a third-party service, another organization), and the taxonomy defines an External Entities (or equivalent) category, tag it with the corresponding External Entities tag. If the taxonomy has no such category, note the named party in the observation text instead.
 
 TRANSCRIPT-SPECIFIC EVIDENCE RULES:
 

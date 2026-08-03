@@ -11,22 +11,22 @@ If you change a pattern here, every skill that references it picks up the change
 Research data lives in the user's Obsidian vault (not this repo):
 
 ```
-Research/
+Research/                             # vault root - default name; may be user-chosen (see Vault Root Resolution)
   inbox/                              # Drop raw notes/transcripts here
     processed/                        # Originals moved here after /analyse
   Studies/
     {Study Name}/
       study.md                        # Study metadata, taxonomy ref, research questions, insights
       sessions/
-        P01-Astrid-34.md              # Session file (P{nn}-{Pseudonym}-{age})
-        P01-Astrid-34-sources/
+        P01-Maya-34.md              # Session file (P{nn}-{Pseudonym}-{age})
+        P01-Maya-34-sources/
           transcript.md               # Raw transcript
           transcript-scrubbed.md      # PII-scrubbed
           notes.md                    # Observer / interviewer notes
           notes-scrubbed.md           # PII-scrubbed notes
           debrief.md                  # Interview technique feedback (optional)
-        P02-Robin-28.md
-        P02-Robin-28-sources/
+        P02-Sam-28.md
+        P02-Sam-28-sources/
           ...
   Reports/
     {Report Name}/
@@ -42,7 +42,7 @@ Research/
 ## Naming Rules
 
 - **Study folders:** Use the study name as-is, spaces are fine (Obsidian handles them).
-- **Session files:** `P{nn}-{Pseudonym}-{age}.md` (e.g. `P01-Astrid-34.md`). If age is unknown: `P{nn}-{Pseudonym}.md`. Created with temp name `P{nn}-pending.md` and renamed after `/scrub-pii` assigns a pseudonym (see `/analyse` step A3).
+- **Session files:** `P{nn}-{Pseudonym}-{age}.md` (e.g. `P01-Maya-34.md`). If age is unknown: `P{nn}-{Pseudonym}.md`. Created with temp name `P{nn}-pending.md` and renamed after `/scrub-pii` assigns a pseudonym (see `/analyse` step A3).
 - **Source folders:** `P{nn}-{Pseudonym}-{age}-sources/` matching the session file name.
 - **Scrubbed files:** Append `-scrubbed` before the extension (e.g. `transcript-scrubbed.md`).
 - **Fixed transcript files:** Append `-fixed` before the extension (e.g. `transcript-fixed.md`, written by `/fix-transcript`).
@@ -52,16 +52,23 @@ Research/
 
 ---
 
+## Vault Root Resolution
+
+The research vault is created by `/setup-attic`. Its default name is `Research`, but the user can choose any name/location, so **never hardcode the name `Research`**. Resolve the vault root once, then derive everything from it:
+
+1. Glob for `**/Studies/*/study.md` (or `**/Studies/` if no studies exist yet). The directory that contains the `Studies/` folder is the **vault root** (`{vaultRoot}`).
+2. If multiple candidates match, prefer the one that also contains a `config/` and/or `inbox/` folder; if still ambiguous, ask the user to pick.
+3. From `{vaultRoot}`, derive: `{vaultRoot}/Studies/`, `{vaultRoot}/Reports/`, `{vaultRoot}/inbox/`, `{vaultRoot}/config/taxonomy/`, `{vaultRoot}/config/learning/`.
+
+When Attic lives inside `{vault}/Attic/`, the vault data is a sibling of the Attic repo. The `**/Studies/` glob works regardless of where the vault sits or what it is named.
+
 ## File Discovery
 
 When a skill receives a path or reference:
 
 1. If it's a full file path, use it directly.
-2. If it looks like `Study Name/P01-Astrid-34`, resolve to `Research/Studies/{Study Name}/sessions/P01-Astrid-34.md`.
+2. If it looks like `Study Name/P01-Maya-34`, resolve to `{vaultRoot}/Studies/{Study Name}/sessions/P01-Maya-34.md` (see Vault Root Resolution).
 3. If ambiguous, use Glob to find matching files and ask the user to pick.
-4. To find the vault root, Glob for `**/Research/Studies/`.
-
-When Attic lives inside `{vault}/Attic/`, Research data is at `../Research/` relative to the Attic root. The `**/Research/Studies/` glob pattern still works regardless of location.
 
 ---
 
@@ -70,9 +77,9 @@ When Attic lives inside `{vault}/Attic/`, Research data is at `../Research/` rel
 The `taxonomy` field in `study.md` frontmatter tells skills which domain taxonomy to load:
 
 - `core` -> loads only `core.yaml` (no domain-specific tags)
-- `<domain>` -> loads `core.yaml` + the domain file `<domain>.yaml` (found in the Attic repo `taxonomy/` or the vault's `Research/config/taxonomy/`)
+- `<domain>` -> loads `core.yaml` + the domain file `<domain>.yaml` (found in the Attic repo `taxonomy/` or the vault's `{vaultRoot}/config/taxonomy/`)
 
-On top of those, any `.yaml` files in the vault's `Research/config/taxonomy/` are merged as a third layer (team-shared, not in this repo).
+On top of those, any `.yaml` files in the vault's `{vaultRoot}/config/taxonomy/` are merged as a third layer (team-shared, not in this repo).
 
 ---
 
@@ -83,15 +90,15 @@ Skills that need taxonomy follow this pattern:
 1. Read the study.md frontmatter `taxonomy` field (e.g. "core" or a domain name).
 2. Find the Attic project root via Glob for `**/taxonomy/core.yaml`.
 3. Always load `taxonomy/core.yaml`.
-4. If the field value is not "core", also load the matching domain file - check `taxonomy/{value}.yaml` in the Attic repo, then `Research/config/taxonomy/{value}.yaml` in the vault.
-5. Find the Research root (see File Discovery). Check for any `.yaml` files in `Research/config/taxonomy/`. If any exist, merge them as a third layer on top of the previous two. Multiple files are all merged - this allows teams to maintain separate taxonomy files per domain or topic.
+4. If the field value is not "core", also load the matching domain file - check `taxonomy/{value}.yaml` in the Attic repo, then `{vaultRoot}/config/taxonomy/{value}.yaml` in the vault.
+5. Resolve the vault root (see Vault Root Resolution). Check for any `.yaml` files in `{vaultRoot}/config/taxonomy/`. If any exist, merge them as a third layer on top of the previous two. Multiple files are all merged - this allows teams to maintain separate taxonomy files per domain or topic.
 6. Merge and format as a flat list per category:
   ```
    ## Product Area
-   - Payment API (aliases: payment-api, betalings-api)
-   - Checkout (aliases: checkout, kasse)
+   - Dashboard (aliases: dashboard, home screen)
+   - Settings (aliases: settings, preferences)
    ## Emotion
-   - Frustration (aliases: frustrasjon)
+   - Frustration (aliases: frustrated, annoyed)
   ```
 
 ---
@@ -160,23 +167,21 @@ Confidence criteria:
 
 ## Participant Naming Convention
 
-Each participant gets a code + a memorable pseudonym: `P01 - Astrid`, `P02 - Robin`.
+Each participant gets a code + a memorable pseudonym: `P01 - {Pseudonym}`, `P02 - {Pseudonym}`.
 
-The pseudonym is picked from `participant-names.yaml` in the Attic root:
+The pseudonym is generated on demand (no name-list file to maintain):
 
-- If participant country is known, pick from that country's list.
-- If participant gender is known, pick from the matching gender list within that country.
-- If gender is unknown, pick from the shared `gender_neutral` list (one list, all countries).
-- Assign names in order - P01 gets the first available name, P02 the second, etc.
-- Within a study, names must be unique.
+- Assign P-numbers in order - P01 first, P02 second, etc. (sequential across the study).
+- Generate a plausible, clearly-fictional given name. If the participant's country/region is known, choose a common given name from that culture so it reads naturally; if gender is known, match it; otherwise choose a neutral name.
+- Within a study, pseudonyms must be unique - skip any already assigned.
 
-This makes sessions easier to remember and discuss without using real names.
+This makes sessions easier to remember and discuss without using real names, and works for participants from any region without maintaining region-specific lists.
 
 ---
 
 ## PII Scrubbing Rules
 
-**Redact:** Replace real participant names with their assigned pseudonym (e.g. "Astrid" or "P01 - Astrid"). Replace interviewer names with [Interviewer]. Replace other person names with [Person]. Replace emails -> [Email], phones -> [Phone], addresses -> [Address], ID numbers -> [ID], Slack @mentions with real names.
+**Redact:** Replace real participant names with their assigned pseudonym (e.g. "Maya" or "P01 - Maya"). Replace interviewer names with [Interviewer]. Replace other person names with [Person]. Replace emails -> [Email], phones -> [Phone], addresses -> [Address], ID numbers -> [ID], Slack @mentions with real names.
 
 **Keep unchanged:** All names and aliases found in the taxonomy (product_areas and external_entities), city names as market references, job titles, nationalities, all formatting and structure.
 
@@ -204,7 +209,7 @@ Note: this rule applies to **prompt files only** (the `prompts/` directory). Ski
 - Do not merge unrelated observations just to reduce count.
 - Do not invent tags outside the taxonomy.
 - Do not frame insights as recommendations - they are factual findings.
-- Do not translate Norwegian content.
+- Do not translate source content - preserve the original language of every quote and observation.
 - Do not discard outliers - they may be the most interesting signals.
 - When stated preference contradicts behavior, create separate observations for each.
 - Always err toward surfacing more observations rather than fewer - the human review step exists to filter, but missed observations are unrecoverable.
@@ -213,14 +218,14 @@ Note: this rule applies to **prompt files only** (the `prompts/` directory). Ski
 
 ## Learning System
 
-Attic improves over time by tracking review decisions and feeding them back into extraction. Learning data lives in the Research folder (team-specific, not in the Attic git repo), following the same pattern as custom taxonomy.
+Attic improves over time by tracking review decisions and feeding them back into extraction. Learning data lives in the vault under `{vaultRoot}/config/` (team-specific, not in the Attic git repo), following the same pattern as custom taxonomy. Resolve `{vaultRoot}` via Vault Root Resolution - do not assume the literal name `Research`.
 
 **Principle:** Optimize for calibration - understanding what the human values - not for approval rate alone. The system should always err toward surfacing too much rather than too little.
 
 ### Learning Data Location
 
 ```
-Research/
+{vaultRoot}/               # default name "Research"; may be user-chosen
   config/
     learning/
       journal.yaml          # Accumulated review decisions (one entry per /review-observations run)
@@ -254,14 +259,14 @@ Miss rate is the most important. A system that never misses what the human would
 
 1. `/analyse` loads learning data (examples + preferences) alongside taxonomy, records the current generation in session frontmatter, and runs extraction with the learning section injected into prompts.
 2. `/review-observations` collects approve/reject/edit/add decisions with rejection reasons, logs everything to `journal.yaml` with the generation tag, and nudges the user to run `/improve` after 5+ sessions.
-3. `/improve` reads the journal, computes metrics by generation, proposes example bank updates, preference notes, taxonomy additions, and extraction rules. Accepted changes are written to `Research/config/learning/`. The generation counter increments.
+3. `/improve` reads the journal, computes metrics by generation, proposes example bank updates, preference notes, taxonomy additions, and extraction rules. Accepted changes are written to `{vaultRoot}/config/learning/`. The generation counter increments.
 4. The next `/analyse` run loads the updated learning data - the loop repeats.
 
 ### Learning Data Loading (used by /analyse)
 
 When `/analyse` reaches the taxonomy loading step, it also checks for learning data:
 
-1. Check for `Research/config/learning/examples.yaml` and `Research/config/learning/preferences.yaml`.
+1. Check for `{vaultRoot}/config/learning/examples.yaml` and `{vaultRoot}/config/learning/preferences.yaml`.
 2. If either exists, build `{{learning_section}}` with up to 3 gold examples, up to 3 anti-examples, and all preference notes. Format as a block that gets injected into extraction prompts after the taxonomy section.
 3. If neither exists (first use, no learning data yet), set `{{learning_section}}` to empty string. The placeholder in the prompt stays blank.
 

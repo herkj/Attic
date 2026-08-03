@@ -43,7 +43,7 @@ Find the scrubbed transcript (see `docs/skill-patterns.md` - File Discovery). Re
 ### Overall Assessment
 ```
 
-Be specific - reference actual moments in the transcript. Be encouraging - this is coaching, not criticism. Norwegian transcripts analysed as-is.
+Be specific - reference actual moments in the transcript. Be encouraging - this is coaching, not criticism. Transcripts are analysed in their original language.
 
 ### 4. Present and optionally save
-Display to user. Offer to save as `{session_name}-sources/debrief.md` (e.g. `P01-Astrid-34-sources/debrief.md`).
+Display to user. Offer to save as `{session_name}-sources/debrief.md` (e.g. `P01-Maya-34-sources/debrief.md`).

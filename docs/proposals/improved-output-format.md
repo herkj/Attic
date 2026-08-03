@@ -63,7 +63,7 @@ A successful output format improvement should make it easy to:
 
 **Pros**
 - No new infrastructure.
-- Fast way to provide "all checkout friction insights" style views.
+- Fast way to provide "all onboarding friction insights" style views.
 
 **Cons**
 - Depends on Obsidian plugin usage and team habits.
@@ -122,8 +122,8 @@ Only build a web viewer or structured export when there is a clear consumer and 
 Research/
   Repository/
     insights/
-      checkout-friction-self-service-onboarding.md
-      settlement-manual-reconciliation-workaround.md
+      friction-in-self-service-onboarding.md
+      manual-tracking-workaround.md
 ```
 
 ### Suggested frontmatter
@@ -134,16 +134,16 @@ status: open
 created: 2026-04-28
 updated: 2026-04-28
 insight-id: INS-0001
-title: Checkout friction in self-service onboarding
+title: Friction in self-service onboarding
 insight-type: friction
 evidence-strength: behavioral
-tags: [Checkout, Onboarding, Frustration]
+tags: [Onboarding, Frustration]
 studies:
-  - Merchant Onboarding
+  - Onboarding Study
 sessions:
-  - P01-Astrid-34
+  - P01-Maya-34
 source-links:
-  - "[[Merchant Onboarding/sessions/P01-Astrid-34]]"
+  - "[[Onboarding Study/sessions/P01-Maya-34]]"
 ```
 
 ### Migration rule

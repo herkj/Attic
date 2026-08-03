@@ -22,11 +22,11 @@ Otherwise, use `AskUserQuestion`: "What would you like to do?"
 
 ### 2a. Load data
 
-Find the Research root (see `docs/skill-patterns.md` - File Discovery). Read:
-- `Research/config/learning/journal.yaml` - all review entries
-- `Research/config/learning/improve-history.yaml` - past improvement runs
-- `Research/config/learning/examples.yaml` - current example bank
-- `Research/config/learning/preferences.yaml` - current preferences
+Resolve the vault root (see `docs/skill-patterns.md` - Vault Root Resolution). Read:
+- `{vaultRoot}/config/learning/journal.yaml` - all review entries
+- `{vaultRoot}/config/learning/improve-history.yaml` - past improvement runs
+- `{vaultRoot}/config/learning/examples.yaml` - current example bank
+- `{vaultRoot}/config/learning/preferences.yaml` - current preferences
 
 If `journal.yaml` does not exist, show "No review data yet. Run `/review-observations` on at least one session first." and stop.
 
@@ -71,10 +71,10 @@ Stop here. Do not proceed to the improvement cycle unless the user asks.
 ### 3a. Load all data
 
 Read:
-- `Research/config/learning/journal.yaml`
-- `Research/config/learning/examples.yaml` (may not exist)
-- `Research/config/learning/preferences.yaml` (may not exist)
-- `Research/config/learning/improve-history.yaml` (may not exist)
+- `{vaultRoot}/config/learning/journal.yaml`
+- `{vaultRoot}/config/learning/examples.yaml` (may not exist)
+- `{vaultRoot}/config/learning/preferences.yaml` (may not exist)
+- `{vaultRoot}/config/learning/improve-history.yaml` (may not exist)
 - All taxonomy files (follow `docs/skill-patterns.md` - Taxonomy Loading, using the most commonly used taxonomy across journal entries)
 
 If `journal.yaml` does not exist or has fewer than 3 entries, show "Not enough review data yet. Run `/review-observations` on at least 3 sessions before running /improve." and stop.
@@ -99,7 +99,7 @@ Present proposals in groups. For each proposal, use `AskUserQuestion` with optio
 
 Propose new examples by reading the actual session files referenced in recent journal entries:
 
-- **Gold examples (up to 3):** Find approved observations from recent sessions that best represent what the team values. Prioritize: behavioral evidence, workaround type, problem type with business impact, observations with high tag accuracy (no tag edits). Show each proposed example with its text, type, tags, and a brief note on why it's a good example.
+- **Gold examples (up to 3):** Find approved observations from recent sessions that best represent what the team values. Prioritize: behavioral evidence, workaround type, problem type with concrete user impact, observations with high tag accuracy (no tag edits). Show each proposed example with its text, type, tags, and a brief note on why it's a good example.
 
 - **Anti-examples (up to 3):** Find rejected observations from recent sessions that have clear rejection reasons. Show each with its text, type, and the rejection reason. Skip rejections with reason "no reason."
 
@@ -113,11 +113,11 @@ Propose new examples by reading the actual session files referenced in recent jo
 
 **Group 3: Taxonomy suggestions**
 
-- **Unused tags:** Tags that appear zero times across all approved observations. Suggest adding aliases or improving descriptions (written to `Research/config/taxonomy/learned.yaml`).
+- **Unused tags:** Tags that appear zero times across all approved observations. Suggest adding aliases or improving descriptions (written to `{vaultRoot}/config/taxonomy/learned.yaml`).
 - **Missing tags:** Tags that users manually added during review (from `additions` and `tag_edits` in the journal) that don't exist in the current taxonomy. Suggest adding them.
 - **Alias suggestions:** Tag renames that appear in `tag_edits` more than once. Suggest adding the "from" value as an alias for the "to" value.
 
-Write any accepted taxonomy changes to `Research/config/taxonomy/learned.yaml`, not to the Attic-managed taxonomy files. Create the file if it doesn't exist.
+Write any accepted taxonomy changes to `{vaultRoot}/config/taxonomy/learned.yaml`, not to the Attic-managed taxonomy files. Create the file if it doesn't exist.
 
 **Group 4: Extraction rule suggestions**
 
@@ -129,28 +129,28 @@ If the analysis reveals a pattern of rejections that could be prevented by a new
 ### 3d. Apply changes
 
 Write all accepted changes to the appropriate files:
-- Gold and anti-examples to `Research/config/learning/examples.yaml`
-- Preference notes to `Research/config/learning/preferences.yaml`
-- Taxonomy additions to `Research/config/taxonomy/learned.yaml`
+- Gold and anti-examples to `{vaultRoot}/config/learning/examples.yaml`
+- Preference notes to `{vaultRoot}/config/learning/preferences.yaml`
+- Taxonomy additions to `{vaultRoot}/config/taxonomy/learned.yaml`
 
-Create the `Research/config/learning/` directory and files if they don't exist.
+Create the `{vaultRoot}/config/learning/` directory and files if they don't exist.
 
 **File format for `examples.yaml`:**
 ```yaml
 gold_examples:
-  - text: "Merchant relies on screenshot-based reconciliation because the settlement report lacks transaction-level detail"
+  - text: "User keeps a separate spreadsheet to track status because the dashboard does not show it at a glance"
     type: workaround
     evidence_type: behavioral
-    tags: [Settlement, Workaround]
-    source_session: "Merchant Onboarding / Session 03"
+    tags: [Workaround]
+    source_session: "Onboarding Study / Session 03"
     generation_added: 1
-    why_good: "Clear workaround with behavioral evidence and business impact"
+    why_good: "Clear workaround with behavioral evidence and concrete user impact"
 
 anti_examples:
   - text: "User prefers simple flow"
     type: observation
-    tags: [Checkout]
-    source_session: "Merchant Onboarding / Session 03"
+    tags: []
+    source_session: "Onboarding Study / Session 03"
     generation_added: 1
     reason_rejected: "Too vague - no specific behavior or evidence"
 ```
@@ -174,7 +174,7 @@ notes:
 
 ### 3e. Log improvement run
 
-Compute the current generation's metrics (same as step 2b-2c, but only for sessions in the current generation). Increment the generation counter and append to `Research/config/learning/improve-history.yaml`:
+Compute the current generation's metrics (same as step 2b-2c, but only for sessions in the current generation). Increment the generation counter and append to `{vaultRoot}/config/learning/improve-history.yaml`:
 
 ```yaml
 - generation: 1

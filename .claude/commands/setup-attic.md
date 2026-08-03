@@ -41,7 +41,7 @@ If "No": skip to step 6.
 
 Ask:
 
-> What would you like to name this taxonomy file? This name helps identify it when you have multiple taxonomies. (e.g. "consumer-app", "merchant-tools", "payments")
+> What would you like to name this taxonomy file? This name helps identify it when you have multiple taxonomies. (e.g. "consumer-app", "internal-tools", "mobile")
 
 Store as `{taxonomy_name}`. The file will be saved as `{taxonomy_name}.yaml`.
 
@@ -68,7 +68,7 @@ product_areas:
   - name: "Example Area"
     aliases:
       - example-area
-      - eksempel-område
+      - alternate-spelling
 
 topics:
   - name: "Example Topic"
@@ -103,6 +103,8 @@ Then say:
 > **The standard workflow:** Drop source files in `{vault}/inbox/` → `/analyse` to extract observations → `/review-observations` to approve, reject, edit, or add your own observations → `/synthesize` to turn them into insights. Reports and articles use the same `/analyse` entry point - just select "Report or article" as the source type.
 >
 > **Sharing with your team:** The `{vault}/config/taxonomy/` folder is designed to be committed to a shared git repository alongside your research data. When a team member adds or refines a tag, everyone picks it up on the next pull.
+>
+> **Any language, any region - no setup needed:** Attic auto-detects and preserves the language of every source file and never translates. Participant pseudonyms are generated per participant to fit their region, so there are no name lists to maintain. You can optionally set a `language` hint per study.
 >
 > Once you have multiple sessions, run `/study-synthesize` to find patterns across all of them and answer your research questions.
 >

@@ -22,25 +22,9 @@ Each item includes: what is wrong, why it matters, suggested fix, and rough effo
 **Effort**
 - Small (1-2 hours).
 
-## 2) Participant name pool exhaustion behavior
+## 2) Participant name pool exhaustion behavior (resolved)
 
-**What is wrong**
-- `participant-names.yaml` has finite lists.
-- No explicit fallback strategy if a study exceeds available names.
-
-**Why it matters**
-- Long-running programs can hit undefined behavior.
-- Collisions or repeated pseudonyms can break readability.
-
-**Suggested fix**
-- Add deterministic fallback rules in `/scrub-pii`:
-  - append numeric suffix after list exhaustion,
-  - or move to combined country + neutral pool,
-  - and always enforce per-study uniqueness.
-- Document fallback in `docs/skill-patterns.md`.
-
-**Effort**
-- Small to medium (2-4 hours).
+**Status:** Resolved. Pseudonyms are now generated on demand by `/scrub-pii` (no static name-list file), so there is no finite pool to exhaust. The only remaining rule is per-study uniqueness, which `/scrub-pii` enforces. See `docs/skill-patterns.md` - Participant Naming Convention.
 
 ## 3) No transcript chunking for long sessions
 

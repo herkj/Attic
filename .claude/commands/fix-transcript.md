@@ -6,7 +6,7 @@ Run this before `/analyse` when you have an automated transcript you suspect has
 
 ## Inputs
 
-$ARGUMENTS - Path to a transcript file (in `Research/inbox/` or a session's sources folder)
+$ARGUMENTS - Path to a transcript file (in `{vaultRoot}/inbox/` or a session's sources folder)
 
 ## Steps
 
@@ -19,8 +19,8 @@ Read the file at $ARGUMENTS. Determine the transcript source if possible from fi
 Scan the transcript for likely transcription errors specific to the domain. Focus on:
 
 - **Product names:** brand, product, and company names from the study's domain - ASR often mangles these. Draw candidates from the study's taxonomy (product_areas and external_entities) if available.
-- **Technical terms:** domain jargon, acronyms, and technical vocabulary (e.g. webhook, API, QR-kode, and similar terms in the interview's language)
-- **Norwegian proper nouns** that ASR trained on English data will mangle
+- **Technical terms:** domain jargon, acronyms, and technical vocabulary (e.g. webhook, API, and similar terms in the interview's language)
+- **Proper nouns in the interview's language** that ASR trained mainly on English will mangle
 - **Speaker label errors:** "Henrik:" mis-transcribed as "Henry:" or "Hendrik:"
 - **Repeated filler artifacts:** "[inaudible]", "[crosstalk]", "[laughter]" - note these but don't remove them
 
@@ -35,14 +35,14 @@ Do NOT change:
 - Speaker attributions (unless clearly wrong)
 - Timestamps
 - Paragraph structure
-- Norwegian sentence structure or grammar
+- The sentence structure or grammar of the source language
 
 ### 4. AI correction pass
 
 After dictionary substitution, do a reading pass for:
 - Words that make no sense in context but sound similar to a plausible word
 - Sentences that are structurally broken but could be repaired with a single word fix
-- Obvious homophone errors ("their" / "there" type errors in Norwegian: "der" / "der")
+- Obvious homophone errors (e.g. English "their" / "there"; every language has its own - apply the equivalent for the interview's language)
 
 Apply only high-confidence corrections. When uncertain, leave as-is and note it.
 
@@ -59,13 +59,13 @@ Present a summary of all changes made:
 ### Product/domain names corrected
 - "henry" -> "Henrik" (speaker label, 3 occurrences)
 - "check out" -> "Checkout" (product name, 7 occurrences)
-- "bank id" -> "BankID" (product name, 2 occurrences)
+- "profil" -> "Profile" (product name, 2 occurrences)
 
 ### Context corrections
 - "we use the app for peyment" -> "we use the app for payment" (homophone)
 
 ### Flagged for review (uncertain)
-- Line 47: "...the kasse [unclear] system..." - could not resolve, left as-is
+- Line 47: "...the [unclear] system..." - could not resolve, left as-is
 ```
 
 Ask: "Apply these changes and save as `{filename}-fixed.md`? Or any corrections you want to undo first?"

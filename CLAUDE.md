@@ -6,10 +6,12 @@ Attic is a CLI-based UX research toolkit built as Claude Code skills. It process
 
 Markdown files are the database. Claude is the AI engine. Obsidian is the UI.
 
+It is domain-, language-, and region-agnostic: `core.yaml` stays universal, all business/product specifics live in a per-project domain taxonomy, source content is preserved in its original language, and participant pseudonyms are generated per region. Nothing in the toolkit is tied to a particular company, industry, or country.
+
 ## Language Rules
 
 - **Never use em dashes.** Use a regular hyphen (-) or rewrite the sentence.
-- Code and documentation in English. Research content may be in Norwegian - preserve it as-is, never translate.
+- Code and documentation in English. Research content may be in any language - preserve it exactly as written, never translate.
 
 ## Key Principles
 
